@@ -1,0 +1,113 @@
+---
+import { Calendar, Dumbbell, Shield, Clapperboard } from "@lucide/astro"
+import { cn } from "@workspace/ui/lib/utils"
+
+export const partial = true
+
+const services = [
+  {
+    icon: Shield,
+    tag: "Security",
+    title: "Veblex Auth",
+    description:
+      "Single sign-on service providing secure, unified authentication across all Veblex products.",
+    features: ["SSO", "OAuth 2.0", "Role-based access", "Two-factor auth"],
+    href: "https://auth.veblex.com/",
+  },
+  {
+    icon: Dumbbell,
+    tag: "Fitness",
+    title: "Veblex Gym",
+    description:
+      "Track workouts, set goals, and analyze performance with a complete fitness management platform.",
+    features: [
+      "Workout tracking",
+      "Goal setting",
+      "Performance analytics",
+      "Progress reports",
+    ],
+    href: "https://gym.veblex.com/",
+  },
+  {
+    icon: Clapperboard,
+    tag: "Productivity",
+    title: "Moviestix",
+    description:
+      "Track what you're watching, manage your watchlist, see detailed progress on shows.",
+    features: ["Watchlist", "Tracking", "Recommendation", "Movies/shows"],
+    href: "https://www.moviestix.com/",
+  },
+  {
+    icon: Calendar,
+    tag: "Productivity",
+    title: "Veblex Calendar",
+    description:
+      "Smart scheduling with cross-service sync. Plan across your entire Veblex ecosystem effortlessly.",
+    features: [
+      "Cross-service sync",
+      "Smart scheduling",
+      "Team calendars",
+      "Reminders",
+    ],
+    comingSoon: true,
+  },
+]
+---
+
+<section class="border-t border-border">
+  <div class="container mx-auto px-4 py-24 sm:px-6 lg:px-8">
+    <div>
+      <span class="font-mono text-sm text-muted-foreground uppercase">
+        Available & Upcoming
+      </span>
+      <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+        The full lineup
+      </h2>
+    </div>
+    <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+      {
+        services.map((service) => {
+          const Icon = service.icon
+          const Wrapper = service.href ? "a" : "div"
+
+          return (
+            <Wrapper
+              href={service.href}
+              class={cn(
+                "group relative space-y-2 rounded-lg border border-primary/30 bg-card p-6 transition-all duration-300 hover:border-primary/50",
+                service.href ? "hover:scale-[1.02]" : ""
+              )}
+            >
+              {service.comingSoon && (
+                <span class="absolute top-4 right-4 grid items-center justify-center rounded-full bg-secondary px-3 py-1.5 font-heading text-[10px] leading-snug tracking-widest text-muted-foreground uppercase">
+                  Coming Soon
+                </span>
+              )}
+
+              <div class="mb-4 hidden size-12 items-center justify-center rounded-lg bg-secondary md:flex">
+                <Icon class="size-6 text-foreground" />
+              </div>
+
+              <span class="flex font-mono text-xs text-muted-foreground uppercase">
+                {service.tag}
+              </span>
+              <h3 class="text-lg">{service.title}</h3>
+              <p class="text-sm leading-relaxed text-muted-foreground">
+                {service.description}
+              </p>
+
+              <ul class="mt-4 space-y-1">
+                {service.features.map((f) => (
+                  <li class="flex items-center gap-2 text-xs text-muted-foreground">
+                    <span class="h-1 w-1 rounded-full bg-foreground" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </Wrapper>
+          )
+        })
+      }
+    </div>
+  </div>
+</section>

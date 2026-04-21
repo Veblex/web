@@ -1,0 +1,27 @@
+---
+import { Layers } from "@lucide/astro";
+
+export const partial = true;
+---
+
+<section
+    class="mx-auto container grid lg:max-w-4xl lg:items-center lg:text-center py-24 px-4 sm:px-6 lg:px-8 min-h-[60vh]"
+>
+    <div>
+        <h1
+            class="flex gap-2 items-center lg:mx-auto w-fit bg-secondary py-2 px-6 rounded-full text-muted-foreground uppercase text-xs"
+        >
+            <Layers class="size-4" />
+            About Veblex
+        </h1>
+        <h2 class="text-4xl md:text-6xl font-bold leading-tight mt-8 mb-6">
+            The Unified <span class="text-gradient">Ecosystem</span> for <span class="text-gradient">Fitness</span> & Security
+        </h2>
+        <p class="sm:text-lg text-muted-foreground">
+            Veblex brings together a growing suite of services — Gym, Calendar,
+            Auth, and more — under a single identity. Every product shares the
+            same design language, authentication layer, and developer
+            experience.
+        </p>
+    </div>
+</section>

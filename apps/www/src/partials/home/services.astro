@@ -1,0 +1,87 @@
+---
+import { ChevronRight } from "@lucide/astro";
+
+export const partial = true;
+
+const services = [
+    {
+        name: "Veblex Auth",
+        description:
+            "Single sign-on service providing secure, unified authentication across all Veblex products.",
+        type: "Security",
+        href: "https://auth.veblex.com",
+        featured: false,
+    },
+    {
+        name: "Veblex Gym",
+        description:
+            "Track workouts, set goals, and analyze performance with a complete fitness management platform.",
+        type: "Fitness",
+        href: "https://gym.veblex.com",
+        featured: false,
+    },
+    // {
+    //     name: "Veblex Calendar",
+    //     description:
+    //         "Smart scheduling with cross-service sync. Plan across your entire Veblex ecosystem effortlessly.",
+    //     type: "Productivity",
+    //     href: "https://calendar.veblex.com",
+    //     featured: false,
+    // },
+    {
+        name: "Moviestix",
+        description:
+            "Track what you're watching, manage your watchlist, see detailed progress on shows.",
+        type: "Productivity",
+        href: "https://www.moviestix.com",
+        featured: false,
+    },
+];
+---
+
+<section id="services">
+    <div class="mx-auto container px-4 py-24 sm:py-32 sm:px-6 lg:px-8">
+        <span class="text-muted-foreground font-mono uppercase text-sm"
+            >Services</span
+        >
+        <h2 class="my-4 text-3xl font-bold tracking-tight sm:text-4xl">
+            Built to work together
+        </h2>
+        <p class="text-lg leading-relaxed text-muted-foreground">
+            A growing ecosystem of interconnected applications designed to
+            enhance every aspect of your digital life.
+        </p>
+
+        <div class="mt-12 grid gap-6 lg:grid-cols-3">
+            {
+                services.map((service) => (
+                    <a
+                        href={service.href}
+                        class={
+                            "cursor-pointer bg-card border border-primary/30 rounded-lg p-6 space-y-3 transition-all duration-300 hover:border-primary/50 hover:scale-[1.02]" +
+                            (service.featured ? " lg:col-span-2" : "")
+                        }
+                    >
+                        <p class="text-muted-foreground font-mono uppercase text-sm">
+                            {service.type}
+                        </p>
+                        <p class="text-2xl font-semibold">{service.name}</p>
+                        <p class="text-muted-foreground leading-relaxed">
+                            {service.description}
+                        </p>
+                    </a>
+                ))
+            }
+        </div>
+
+        <div class="flex justify-center mt-12">
+            <a
+                class="cursor-pointer flex items-center justify-between gap-2 rounded-lg py-4 px-6 sm:px-12 font-medium sm:text-lg hover:bg-card/90 bg-card text-primary-foreground transition-all duration-300 hover:border-primary/50 hover:scale-[1.02]"
+                href="/services"
+            >
+                Explore all services
+                <ChevronRight class="size-5" />
+            </a>
+        </div>
+    </div>
+</section>

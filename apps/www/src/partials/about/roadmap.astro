@@ -1,0 +1,53 @@
+---
+export const partial = true;
+
+const timeline = [
+    {
+        phase: "Phase 1",
+        title: "Foundation",
+        description: "Veblex Auth, Gym, and Calendar launch as the core trio.",
+    },
+    {
+        phase: "Phase 2",
+        title: "Expansion",
+        description:
+            "New services join the ecosystem with deeper cross-service integrations.",
+    },
+    {
+        phase: "Phase 3",
+        title: "Platform",
+        description:
+            "Open APIs and a developer marketplace to extend every Veblex service.",
+    },
+];
+---
+
+<section class="border-t border-border">
+    <div class="mx-auto container py-24 px-4 sm:px-6 lg:px-8">
+        <div>
+            <span class="text-muted-foreground font-mono uppercase text-sm">
+                Roadmap
+            </span>
+            <h2 class="mt-4 text-3xl font-bold tracking-tight">
+                Where we're headed
+            </h2>
+        </div>
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-12">
+            {
+                timeline.map((value) => (
+                    <div class="rounded-lg border border-primary/30 bg-card p-6 transition-colors duration-300 hover:border-primary/50">
+                        <span class="text-muted-foreground font-mono uppercase text-sm">
+                            {value.phase}
+                        </span>
+                        <h3 class="my-2 font-semibold text-lg">
+                            {value.title}
+                        </h3>
+                        <p class="text-sm leading-relaxed text-muted-foreground">
+                            {value.description}
+                        </p>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>

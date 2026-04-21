@@ -1,25 +1,18 @@
 ---
-import "@workspace/ui/styles/globals.css"
-import { Button } from "@workspace/ui/components/button"
+import Layout from "@layouts/root.astro";
+
+import Hero from "@partials/home/hero.astro";
+import Services from "@partials/home/services.astro";
+import About from "@partials/home/about.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Astro App</title>
-  </head>
-  <body>
-    <div class="flex min-h-svh p-6">
-      <div class="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 class="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We've already added the button component for you.</p>
-          <Button client:load className="mt-2">Button</Button>
-        </div>
-      </div>
-    </div>
-  </body>
-</html>
+<Layout
+    title="Veblex - One Ecosystem. Infinite Services."
+    description="Veblex is a unified platform powering Gym, Calendar, Auth & more. One identity, one design system, built for teams that ship fast."
+>
+    <main class="flex-1">
+        <Hero />
+        <Services />
+        <About />
+    </main>
+</Layout>

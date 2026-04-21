@@ -1,0 +1,72 @@
+---
+import "@workspace/ui/styles/globals.css"
+
+import Header from "@components/header.astro";
+import Footer from "@components/footer.astro";
+
+import { ClientRouter } from "astro:transitions";
+import { Font } from "astro:assets";
+
+const url = Astro.url;
+
+const {
+    title,
+    page,
+    description,
+    author,
+    do_not_index,
+}: {
+    title?: string;
+    page?: string;
+    description?: string;
+    author?: string;
+    do_not_index?: boolean;
+} = Astro.props;
+const page_title = !title && page ? `${page} - Veblex` : (!title && !page ? 'Veblex' : title);
+---
+
+<html lang="en" class="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
+
+        <meta name="generator" content={Astro.generator} />
+
+        <meta
+            name="robots"
+            content={do_not_index === true
+                ? "noindex, nofollow"
+                : "index, follow"}
+        />
+        <meta property="og:type" content="website" />
+
+        <title>{page_title}</title>
+        <meta name="og:title" content={page_title} />
+        <meta name="og:site_name" content="Veblex" />
+        <meta name="twitter:title" content={page_title} />
+
+        <meta name="og:url" content={url} />
+        <meta property="twitter:url" content={url} />
+        <meta property="twitter:domain" content={url.origin} />
+
+        <meta name="description" content={description} />
+        <meta name="og:description" content={description} />
+        <meta name="twitter:description" content={description} />
+
+        <meta name="author" content={!author ? "Veblex" : author} />
+
+        <ClientRouter />
+
+        <Font cssVariable="--font-sans" preload />
+    </head>
+    <body>
+        <div class="flex min-h-screen flex-col">
+            <Header />
+            <slot />
+            <Footer />
+        </div>
+    </body>
+</html>

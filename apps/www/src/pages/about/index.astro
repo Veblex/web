@@ -1,0 +1,21 @@
+---
+import Layout from "@layouts/root.astro";
+
+import Hero from "@partials/about/hero.astro";
+import Mission from "@partials/about/mission.astro";
+import Principles from "@partials/about/principles.astro";
+import Roadmap from "@partials/about/roadmap.astro";
+
+import CTA from "@partials/basic-cta.astro";
+---
+
+<Layout page="About" title="About Veblex - The Unified Digital Ecosystem for Fitness & Security" description="Learn how Veblex unifies modular services under one identity, design language, and auth layer. Built for developers and teams.">
+    <main class="flex-1">
+        <Hero />
+        <Mission />
+        <Principles />
+        <Roadmap />
+
+        <CTA />
+    </main>
+</Layout>

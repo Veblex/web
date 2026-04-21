@@ -1,0 +1,59 @@
+---
+import { Zap, Lock, Globe, Puzzle } from "@lucide/astro";
+
+export const partial = true;
+
+const principles = [
+    {
+        name: "Modular by Design",
+        description:
+            "Every Veblex service is self-contained yet interconnected. Use one or use them all — they integrate seamlessly.",
+        icon: Puzzle,
+    },
+    {
+        name: "Security First",
+        description:
+            "Veblex Auth provides a unified SSO layer so users authenticate once and access every service securely.",
+        icon: Lock,
+    },
+    {
+        name: "Developer Experience",
+        description:
+            "Consistent APIs, shared design language, and thorough documentation make building on Veblex fast and intuitive.",
+        icon: Zap,
+    },
+    {
+        name: "Built for Scale",
+        description:
+            "From solo projects to enterprise deployments, the Veblex ecosystem grows with you — no re-architecture needed.",
+        icon: Globe,
+    },
+];
+---
+
+<section class="mx-auto container py-24 px-4 sm:px-6 lg:px-8">
+    <div>
+        <span class="text-muted-foreground font-mono uppercase text-sm">
+            Core Principles
+        </span>
+        <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+            Why Veblex exists
+        </h2>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 mt-12">
+        {
+            principles.map((value) => (
+                <div class="rounded-lg border border-primary/30 bg-card p-6 transition-colors duration-300 hover:border-primary/50">
+                    <div class="hidden md:flex size-10 items-center justify-center rounded-lg bg-secondary">
+                        <value.icon class="size-5 text-foreground" />
+                    </div>
+                    <h3 class="md:mt-4 font-semibold">{value.name}</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+                        {value.description}
+                    </p>
+                </div>
+            ))
+        }
+    </div>
+</section>

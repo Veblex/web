@@ -1,0 +1,41 @@
+---
+import { ArrowRight, ChevronRight } from "@lucide/astro";
+import { cn } from "@workspace/ui/lib/utils";
+
+export const partial = true;
+
+const { className, secondaryActionText, secondaryActionHref } = Astro.props;
+---
+
+<section class={cn("border-t border-border", className ?? "")}>
+    <div class="mx-auto container py-24 sm:py-32 px-4 sm:px-6 lg:px-8">
+        <div
+            class="flex flex-col lg:items-center lg:text-center space-y-6 md:space-y-8 max-w-lg lg:max-w-2xl lg:mx-auto"
+        >
+            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">
+                Ready to join the ecosystem?
+            </h2>
+            <p class="text-lg leading-relaxed text-muted-foreground">
+                Create your free Veblex account and get access to every service
+                with a single sign-on.
+            </p>
+
+            <div class="grid sm:flex items-center gap-4">
+                <a
+                    class="cursor-pointer flex items-center justify-between gap-2 rounded-lg py-3 px-6 sm:px-8 font-medium text-sm hover:bg-primary/90 bg-primary text-primary-foreground"
+                    href="https://auth.veblex.com/"
+                >
+                    Create Your Account
+                    <ArrowRight class="size-4" />
+                </a>
+                <a
+                    class="cursor-pointer flex items-center justify-between gap-2 rounded-lg py-3 px-6 sm:px-8 font-medium text-sm hover:bg-primary/90 border"
+                    href={secondaryActionHref ?? "/services"}
+                >
+                    {secondaryActionText ?? "Explore services"}
+                    <ChevronRight class="size-4" />
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

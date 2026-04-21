@@ -1,0 +1,78 @@
+---
+import { Zap, Lock, Globe, Users, ArrowRight } from "@lucide/astro"
+import { VBadgeDark, VBadgeLight } from "@workspace/ui/brand-icons"
+
+export const partial = true
+
+const values = [
+    {
+        name: "Seamless Integration",
+        description:
+            "All our services work together flawlessly, sharing data securely to give you a unified experience.",
+        icon: Zap,
+    },
+    {
+        name: "Privacy First",
+        description:
+            "Your data belongs to you. We employ industry-leading security practices to keep your information safe.",
+        icon: Lock,
+    },
+    {
+        name: "Always Accessible",
+        description:
+            "Access your ecosystem from anywhere, on any device. Your digital life travels with you.",
+        icon: Globe,
+    },
+    {
+        name: "Community Driven",
+        description:
+            "We build features our users want. Join our community and help shape the future of Veblex.",
+        icon: Users,
+    },
+]
+---
+
+<section class="border-t border-border">
+    <div class="container mx-auto px-4 py-24 sm:px-6 lg:px-8">
+        <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+                <span class="font-mono text-sm text-muted-foreground uppercase">
+                    Our Mission
+                </span>
+                <h2 class="my-4 text-3xl font-bold tracking-tight sm:text-4xl">
+                    Simplify the stack, amplify the experience
+                </h2>
+                <div
+                    class="space-y-4 text-lg leading-relaxed text-muted-foreground"
+                >
+                    <p>
+                        Modern teams juggle dozens of disconnected tools. Veblex
+                        replaces that fragmentation with a unified ecosystem
+                        where every service works together out of the box —
+                        shared auth, shared data, shared design.
+                    </p>
+                    <p>
+                        Whether you&apos;re tracking workouts, managing
+                        schedules, or securing access, Veblex handles it under
+                        one roof so you can focus on what matters.
+                    </p>
+                </div>
+            </div>
+
+            <div class="hidden items-center justify-center lg:flex">
+                <div class="relative">
+                    <div
+                        class="absolute inset-0 rounded-2xl bg-primary/40 blur-3xl"
+                    >
+                    </div>
+                    <VBadgeLight
+                        className="animate-float pointer-events-none size-48 select-none not-dark:hidden"
+                    />
+                    <VBadgeDark
+                        className="animate-float pointer-events-none size-48 select-none dark:hidden"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

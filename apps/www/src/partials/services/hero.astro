@@ -1,0 +1,26 @@
+---
+import { Layers } from "@lucide/astro";
+
+export const partial = true;
+---
+
+<section
+    class="mx-auto container grid lg:max-w-3xl lg:items-center lg:text-center py-24 px-4 sm:px-6 lg:px-8 min-h-[60vh]"
+>
+    <div>
+        <span
+            class="flex gap-2 items-center lg:mx-auto w-fit bg-secondary py-2 px-6 rounded-full text-muted-foreground uppercase text-xs"
+        >
+            <Layers class="size-4" />
+            Services
+        </span>
+        <h1 class="text-4xl md:text-6xl font-bold leading-tight mt-8 mb-6">
+            Everything you need, one <span class="text-gradient">ecosystem</span
+            >
+        </h1>
+        <p class="sm:text-lg text-muted-foreground lg:max-w-xl lg:mx-auto">
+            From fitness tracking to authentication, every Veblex service is
+            modular, production-ready, and designed to work together seamlessly.
+        </p>
+    </div>
+</section>

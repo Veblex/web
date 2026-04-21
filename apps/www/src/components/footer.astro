@@ -1,0 +1,158 @@
+---
+import { FullDark, FullLight, GitHub } from "@workspace/ui/brand-icons"
+
+const year = new Date().getFullYear()
+
+const contactMail = "contact@veblex.com"
+
+const socialLinks = [
+  {
+    name: "GitHub",
+    href: "https://github.com/veblex/",
+    icon: GitHub,
+  },
+  // {
+  //     name: "Discord",
+  //     href: "https://discord.com/veblex/",
+  //     icon: Discord,
+  // },
+]
+
+const footerLinks: {
+  title: string
+  links: {
+    name: string
+    href: string
+    target?: "_blank" | "_self" | "_parent" | "_top"
+  }[]
+}[] = [
+  {
+    title: "Services",
+    links: [
+      {
+        name: "Veblex Auth",
+        href: "https://auth.veblex.com/",
+      },
+      {
+        name: "Veblex Gym",
+        href: "https://gym.veblex.com/",
+      },
+      {
+        name: "Moviestix",
+        href: "https://moviestix.com/",
+      },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { name: "Services", href: "/services" },
+      { name: "About", href: "/about" },
+      { name: "Press", href: "/press" },
+      { name: "Blog", href: "/blog" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { name: "Documentation", href: "/docs" },
+      { name: "Help Center", href: "/help" },
+      {
+        name: "Status",
+        href: "https://status.veblex.com/",
+        target: "_blank",
+      },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { name: "Privacy Policy", href: "/legal/privacy" },
+      { name: "Terms of Service", href: "/legal/terms" },
+      { name: "Cookie Policy", href: "/legal/cookies" },
+    ],
+  },
+]
+---
+
+<footer class="border-t border-border bg-background">
+  <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <!-- Top bar -->
+    <div
+      class="flex flex-col-reverse justify-between gap-6 gap-y-16 lg:flex-row"
+    >
+      <!-- Brand -->
+      <div>
+        <a href="/" class="flex max-w-28">
+          <FullLight className="not-dark:hidden" />
+          <FullDark className="dark:hidden" />
+        </a>
+
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
+          Your unified digital ecosystem. One account, endless possibilities.
+        </p>
+
+        <div class="mt-6 flex items-center gap-2">
+          {
+            socialLinks.map((link) => (
+              <a
+                href={link.href}
+                class="rounded-full border border-primary/30 bg-card p-2 text-muted-foreground transition-colors duration-300 hover:border-foreground hover:bg-foreground hover:text-background"
+                aria-label={`Veblex on ${link.name}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <link.icon className="size-5" />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Links -->
+      <div
+        class="flex flex-wrap gap-12 sm:gap-16 lg:gap-20 xl:grid xl:grid-cols-4"
+      >
+        {
+          footerLinks.map((col) => (
+            <div class="flex basis-32 flex-col">
+              <h3 class="text-sm font-semibold">{col.title}</h3>
+              <ul class="mt-4 space-y-3">
+                {col.links.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      target={link.target ?? "_self"}
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div
+      class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row"
+    >
+      <p class="text-sm text-muted-foreground">
+        &copy; {year} Veblex. All rights reserved.
+      </p>
+
+      <p class="text-sm text-muted-foreground">
+        <a
+          href={`mailto:${contactMail}`}
+          target="_blank"
+          class="transition-colors hover:text-foreground"
+        >
+          {contactMail}
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>

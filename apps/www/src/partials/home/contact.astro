@@ -1,0 +1,121 @@
+---
+import { Send, CircleCheckBig } from "@lucide/astro"
+
+export const partial = true;
+
+const isSubmitted = false;
+const isLoading = false;
+---
+
+    <section id="contact" class="border-t border-border bg-secondary/30">
+      <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+          <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Get in Touch</h2>
+          <p class="mt-4 text-lg leading-relaxed text-muted-foreground">
+            Have questions about Veblex? Want to partner with us? We&apos;d love to hear from you.
+          </p>
+        </div>
+
+        <div class="mx-auto mt-12 max-w-xl">
+          {isSubmitted ? (
+            <div class="flex flex-col items-center justify-center rounded-lg border border-border bg-card p-8 text-center">
+              <div class="flex size-16 items-center justify-center rounded-full bg-accent/20">
+                <CircleCheckBig class="size-8 text-accent" />
+              </div>
+              <h3 class="mt-4 text-xl font-semibold">Message Sent!</h3>
+              <p class="mt-2 text-muted-foreground">
+                Thank you for reaching out. We&apos;ll get back to you as soon as possible.
+              </p>
+              
+              <button class="mt-6 border rounded-md py-2 px-4">
+                Send another message
+              </button>
+            </div>
+          ) : (
+            <form class="space-y-6">
+              <div>
+                <div class="grid gap-6 sm:grid-cols-2">
+                  <div class="flex flex-col gap-2">
+                    <label for="firstName">First name</label>
+                    <input
+                      id="firstName"
+                      name="firstName"
+                      placeholder="John"
+                      required
+                      class="bg-card py-2 px-3 rounded-md border border-input"
+                    />
+                  </div>
+                  <div class="flex flex-col gap-2">
+                    <label for="lastName">Last name</label>
+                    <input
+                      id="lastName"
+                      name="lastName"
+                      placeholder="Doe"
+                      required
+                      class="bg-card py-2 px-3 rounded-md border border-input"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label for="email">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="john@example.com"
+                  required
+                  class="bg-card py-2 px-3 rounded-md border border-input"
+                />
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label for="subject">Subject</label>
+                <input
+                  id="subject"
+                  name="subject"
+                  placeholder="How can we help?"
+                  required
+                  class="bg-card py-2 px-3 rounded-md border border-input"
+                />
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Tell us more about your inquiry..."
+                  rows={5}
+                  required
+                  class="resize-none bg-card py-2 px-3 rounded-md border border-input"
+                ></textarea>
+              </div>
+
+              <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <p class="text-sm text-muted-foreground">
+                  Or email us directly at{" "}
+                  <a
+                    href="mailto:contact@veblex.com"
+                    class="font-medium text-foreground underline underline-offset-4 hover:text-accent"
+                  >
+                    contact@veblex.com
+                  </a>
+                </p>
+                <button type="submit" disabled={isLoading} class="gap-2 px-4 py-2 text-sm bg-foreground text-background rounded-md flex items-center">
+                  {isLoading ? (
+                    <>Sending...</>
+                  ) : (
+                    <>
+                      Send message
+                      <Send class="size-4" />
+                    </>
+                  )}
+                </Button>
+              </div>
+            </form>
+          )}
+        </div>
+      </div>
+    </section>

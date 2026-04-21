@@ -1,0 +1,17 @@
+---
+import Layout from "@layouts/root.astro";
+
+import Hero from "@partials/services/hero.astro";
+import Services from "@partials/services/services.astro";
+
+import CTA from "@partials/basic-cta.astro";
+---
+
+<Layout page="Services" title="Veblex Services - Gym, Calendar, Auth & More" description="Explore the Veblex service suite: Gym, Calendar, Auth (SSO), plus Mail, Insights, and Cloud coming soon. Modular and integrated.">
+    <main class="flex-1">
+        <Hero />
+        <Services />
+
+        <CTA secondaryActionText="About Veblex" secondaryActionHref="/about" />
+    </main>
+</Layout>

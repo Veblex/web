@@ -7,6 +7,12 @@
     "jsxImportSource": "react",
     "paths": {
       "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@partials/*": ["./src/partials/*"],
+      "@lib/*": ["./src/lib/*"],
       "@workspace/ui/*": ["../../packages/ui/src/*"]
     }
   }

@@ -1,0 +1,128 @@
+---
+import {
+    Dumbbell,
+    Calendar,
+    Shield,
+    Clapperboard,
+    ArrowRight,
+    ChevronRight,
+} from "@lucide/astro"
+import { VBadgeDark, VBadgeLight } from "@workspace/ui/brand-icons"
+
+export const partial = true
+
+const floatingIcons = [
+    {
+        icon: Dumbbell,
+        color: "bg-chart-1",
+        position: "top-[-30%] left-[-10%]",
+        delay: "0s",
+    },
+    {
+        icon: Calendar,
+        color: "bg-chart-2",
+        position: "top-[-10%] right-[0%]",
+        delay: "0.5s",
+    },
+    {
+        icon: Shield,
+        color: "bg-chart-3",
+        position: "top-[120%] left-[-20%]",
+        delay: "1s",
+    },
+    {
+        icon: Clapperboard,
+        color: "bg-chart-4",
+        position: "top-[120%] right-[-20%]",
+        delay: "1.5s",
+    },
+]
+---
+
+<section
+    class="relative flex min-h-screen flex-col items-center justify-center"
+>
+    <div
+        class="relative container grid grid-cols-1 px-4 py-12 sm:px-6 sm:py-18 lg:px-8 xl:grid-cols-2"
+    >
+        <div class="flex flex-col justify-center">
+            <h1
+                class="text-5xl leading-tight font-bold tracking-tight text-balance text-foreground md:text-6xl"
+            >
+                Your digital life,<br />
+                <span class="text-gradient">finally connected.</span>
+            </h1>
+
+            <p
+                class="my-8 text-base leading-relaxed text-pretty text-muted-foreground sm:text-xl"
+            >
+                We got tired of juggling a million apps. So we built something
+                better. One account. Four awesome services. Zero headaches.
+                Track your gains, plan your days, binge your shows - all in one
+                place.
+            </p>
+
+            <div class="grid items-center gap-4 sm:flex">
+                <a
+                    class="flex cursor-pointer items-center justify-between gap-2 rounded-lg bg-primary px-6 py-3 font-medium text-primary-foreground hover:bg-primary/90 sm:px-12 sm:text-lg"
+                    href="https://auth.veblex.com/"
+                >
+                    Create Your Account
+                    <ArrowRight class="size-5" />
+                </a>
+                <a
+                    class="flex cursor-pointer items-center justify-between gap-2 rounded-lg border px-6 py-3 font-medium hover:bg-primary/90 sm:px-12 sm:text-lg"
+                    href="/services"
+                >
+                    Explore services
+                    <ChevronRight class="size-5" />
+                </a>
+            </div>
+
+            <div class="absolute inset-0 mx-auto hidden">
+                {/* Floating app icons */}
+                {
+                    false &&
+                        floatingIcons.map((item) => (
+                            <div
+                                class={`absolute hidden lg:flex ${item.position} size-16 items-center justify-center rounded-2xl ${item.color} animate-bounce text-primary-foreground shadow-xl`}
+                                style={{
+                                    animationDelay: item.delay,
+                                    animationDuration: "3s",
+                                }}
+                                aria-hidden="true"
+                            >
+                                <item.icon class="size-7" />
+                            </div>
+                        ))
+                }
+            </div>
+        </div>
+
+        {/* Image/illustration here */}
+        <div class="relative hidden items-center justify-center xl:flex">
+            <div
+                class="absolute top-1/3 right-1/2 size-56 rounded-2xl bg-secondary/30 blur-3xl"
+            >
+            </div>
+            <VBadgeDark
+                className="animate-float pointer-events-none w-full max-w-sm select-none not-dark:hidden"
+            />
+            <VBadgeLight
+                className="animate-float pointer-events-none w-full max-w-sm select-none dark:hidden"
+            />
+        </div>
+
+        {/* Decorative background shapes */}
+        <div class="absolute inset-0 -z-10" aria-hidden="true">
+            <div
+                class="absolute top-1/2 -left-1/24 size-56 rounded-full bg-primary/15 blur-3xl md:size-80"
+            >
+            </div>
+            <div
+                class="absolute -top-1/3 right-1 size-64 rounded-full bg-accent/50 blur-3xl md:top-[unset] md:bottom-1/2 md:size-80 xl:size-96"
+            >
+            </div>
+        </div>
+    </div>
+</section>
