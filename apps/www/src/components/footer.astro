@@ -1,5 +1,6 @@
 ---
 import { FullDark, FullLight, GitHub } from "@workspace/ui/brand-icons";
+import { UptimeWidget } from "@workspace/ui/components/uptime-widget";
 import { CTA, type CTAProps } from "@components/cta";
 import { ExternalLink } from "@lucide/astro";
 
@@ -182,6 +183,8 @@ const footerLinks: {
                     {contactMail}
                 </a>
             </p>
+
+            <UptimeWidget client:load />
         </div>
     </div>
 </footer>
