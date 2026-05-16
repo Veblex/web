@@ -1,5 +1,5 @@
 import { services, type Service } from "@/data/services";
-import { Card } from "@workspace/ui/components/Card";
+import { Card } from "@workspace/ui/components/card";
 
 export function Services({
     titleTag = "p",
