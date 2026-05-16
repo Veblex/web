@@ -1,9 +1,14 @@
 ---
-import Layout from "@layouts/root.astro";
+import { ArrowRight, ChevronRight } from "@lucide/astro";
 
-import Hero from "@partials/home/hero.astro";
-import Services from "@partials/home/services.astro";
-import About from "@partials/home/about.astro";
+import { VBadgeDark, VBadgeLight } from "@workspace/ui/brand-icons";
+import { buttonVariants } from "@workspace/ui/components/button";
+import { Card } from "@workspace/ui/components/Card";
+
+import { Services as ServicesComp } from "@components/services";
+import { stats } from "@/data/stats";
+
+import Layout from "@layouts/root.astro";
 ---
 
 <Layout
@@ -11,8 +16,187 @@ import About from "@partials/home/about.astro";
     description="Veblex is a unified platform powering Gym, Calendar, Auth & more. One identity, one design system, built for teams that ship fast."
 >
     <main class="flex-1">
-        <Hero />
-        <Services />
-        <About />
+        {/* Hero */}
+        <section
+            class="relative flex min-h-screen flex-col items-center justify-center"
+        >
+            <div
+                class="relative container grid grid-cols-1 px-4 py-12 sm:px-6 sm:py-18 lg:px-8 xl:grid-cols-2"
+            >
+                <div class="flex flex-col justify-center">
+                    <h1
+                        class="text-5xl leading-tight font-bold tracking-tight text-balance text-foreground md:text-6xl"
+                    >
+                        Your digital life,<br />
+                        <span class="text-gradient">finally connected.</span>
+                    </h1>
+
+                    <p
+                        class="my-8 text-base leading-relaxed text-pretty text-muted-foreground sm:text-xl"
+                    >
+                        We got tired of juggling a million apps. So we built
+                        something better. One account. Four awesome services.
+                        Zero headaches. Track your gains, plan your days, binge
+                        your shows - all in one place.
+                    </p>
+
+                    <div class="grid items-center gap-4 sm:flex">
+                        <a
+                            href="https://auth.veblex.com/"
+                            class={buttonVariants({
+                                variant: "default",
+                                size: "lg",
+                            })}
+                        >
+                            Create Your Account
+                            <ArrowRight class="size-5" />
+                        </a>
+                        <a
+                            class={buttonVariants({
+                                variant: "outline",
+                                size: "lg",
+                            })}
+                            href="/services"
+                        >
+                            Explore services
+                            <ChevronRight class="size-5" />
+                        </a>
+                    </div>
+                </div>
+
+                {/* Image/illustration here */}
+                <div
+                    class="relative hidden items-center justify-center xl:flex"
+                    aria-hidden="true"
+                >
+                    <div
+                        class="absolute top-1/3 right-1/2 size-56 rounded-2xl bg-secondary/30 blur-3xl"
+                    >
+                    </div>
+                    <VBadgeDark
+                        className="pointer-events-none w-full max-w-sm animate-float select-none not-dark:hidden"
+                    />
+                    <VBadgeLight
+                        className="pointer-events-none w-full max-w-sm animate-float select-none dark:hidden"
+                    />
+                </div>
+
+                {/* Decorative background shapes */}
+                <div class="absolute inset-0 -z-10" aria-hidden="true">
+                    <div
+                        class="absolute top-1/2 -left-1/24 size-56 rounded-full bg-chart-5/2 blur-3xl md:size-80"
+                    >
+                    </div>
+                    <div
+                        class="absolute -top-1/3 right-1 size-64 rounded-full bg-chart-3/5 blur-3xl md:top-[unset] md:bottom-1/2 md:size-80 xl:size-96"
+                    >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/* Services */}
+        <section>
+            <div class="container mx-auto px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
+                <span class="font-mono text-sm text-muted-foreground uppercase">
+                    Services
+                </span>
+                <h2 class="my-4 text-3xl font-bold tracking-tight sm:text-4xl">
+                    Built to work together
+                </h2>
+                <p class="text-lg leading-relaxed text-muted-foreground">
+                    A growing ecosystem of interconnected applications designed
+                    to enhance every aspect of your digital life.
+                </p>
+
+                <div class="mt-12 grid gap-6 lg:grid-cols-3">
+                    <ServicesComp
+                        showFeatures={false}
+                        onlyCore={true}
+                        limit={3}
+                    />
+                </div>
+
+                <div class="mt-12 flex justify-center">
+                    <a
+                        class={buttonVariants({
+                            variant: "secondary",
+                            size: "lg",
+                        })}
+                        href="/services"
+                    >
+                        Explore all services
+                        <ChevronRight class="size-5" />
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        {/* About */}
+        <section class="border-t border-border">
+            <div class="container mx-auto px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
+                <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+                    <div>
+                        <span
+                            class="font-mono text-sm text-muted-foreground uppercase"
+                            >About Veblex</span
+                        >
+
+                        <h2
+                            class="my-4 text-3xl font-bold tracking-tight sm:text-4xl"
+                        >
+                            An ecosystem, not just a product
+                        </h2>
+
+                        <p
+                            class="text-lg leading-relaxed text-muted-foreground"
+                        >
+                            Veblex brings together a growing suite of services
+                            under a single identity. Every product shares the
+                            same design language, auth layer, and developer
+                            experience — so you can build faster with fewer
+                            tools.
+                        </p>
+
+                        <div class="grid items-center gap-4 sm:flex mt-4">
+                            <a
+                                class={buttonVariants({ variant: "default", size: "lg" })}
+                                href="https://auth.veblex.com/"
+                            >
+                                Create Your Account
+                                <ArrowRight class="size-4" />
+                            </a>
+                            <a
+                                class={buttonVariants({ variant: "outline", size: "lg" })}
+                                href="/about"
+                            >
+                                Learn more
+                                <ChevronRight class="size-4" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div
+                        class="grid gap-6 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2"
+                    >
+                        {
+                            stats.map((stat) => (
+                                <Card size="lg">
+                                    <p class="flex flex-col gap-2 text-center text-sm leading-relaxed text-muted-foreground">
+                                        <>
+                                            <span class="text-3xl font-bold text-foreground">
+                                                {stat.value}
+                                            </span>
+                                            <br />
+                                        </>
+                                        {stat.title}
+                                    </p>
+                                </Card>
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 </Layout>

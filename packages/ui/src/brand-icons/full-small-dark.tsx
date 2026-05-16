@@ -1,5 +1,5 @@
 export const FullSmallDark = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 5800 1080" className={className}>
+  <svg viewBox="0 0 5800 1080" className={className} aria-hidden="true">
     <defs>
       <linearGradient
         id="FullSmallDark_a"

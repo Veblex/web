@@ -1,5 +1,6 @@
 ---
-import "@workspace/ui/styles/globals.css"
+import "@workspace/ui/styles/globals.css";
+import { ThemeProvider } from "@workspace/ui/components/theme-provider";
 
 import Header from "@components/header.astro";
 import Footer from "@components/footer.astro";
@@ -22,13 +23,25 @@ const {
     author?: string;
     do_not_index?: boolean;
 } = Astro.props;
-const page_title = !title && page ? `${page} - Veblex` : (!title && !page ? 'Veblex' : title);
+const page_title =
+    !title && page ? `${page} - Veblex` : !title && !page ? "Veblex" : title;
 ---
 
-<html lang="en" class="dark">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <script is:inline>
+            const theme = localStorage.getItem("theme") ?? "system";
+            const resolved =
+                theme === "system"
+                    ? window.matchMedia("(prefers-color-scheme: dark)").matches
+                        ? "dark"
+                        : "light"
+                    : theme;
+            document.documentElement.classList.add(resolved);
+        </script>
 
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" />
@@ -63,10 +76,12 @@ const page_title = !title && page ? `${page} - Veblex` : (!title && !page ? 'Veb
         <Font cssVariable="--font-sans" preload />
     </head>
     <body>
-        <div class="flex min-h-screen flex-col">
-            <Header />
-            <slot />
-            <Footer />
-        </div>
+        <ThemeProvider client:only="react">
+            <div class="flex min-h-screen flex-col">
+                <Header />
+                <slot />
+                <Footer />
+            </div>
+        </ThemeProvider>
     </body>
 </html>

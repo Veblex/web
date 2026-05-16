@@ -1,5 +1,5 @@
 export const BadgeWithFullLight = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 1080 1080" className={className}>
+  <svg viewBox="0 0 1080 1080" className={className} aria-hidden="true">
     <defs>
       <linearGradient
         id="BadgeWithFullLight_a"
