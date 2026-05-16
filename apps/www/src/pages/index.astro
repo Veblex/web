@@ -25,7 +25,7 @@ import Layout from "@layouts/root.astro";
             >
                 <div class="flex flex-col justify-center">
                     <h1
-                        class="text-5xl leading-tight font-bold tracking-tight text-balance text-foreground md:text-6xl"
+                        class="font-heading text-5xl font-bold tracking-tight text-balance text-foreground md:text-6xl"
                     >
                         Your digital life,<br />
                         <span class="text-gradient">finally connected.</span>
@@ -69,8 +69,9 @@ import Layout from "@layouts/root.astro";
                     class="relative hidden items-center justify-center xl:flex"
                     aria-hidden="true"
                 >
+                    {/* Middle */}
                     <div
-                        class="absolute top-1/3 right-1/2 size-56 rounded-2xl bg-secondary/30 blur-3xl"
+                        class="absolute top-1/2 right-1/2 size-56 rounded-2xl bg-chart-3/5 blur-3xl"
                     >
                     </div>
                     <VBadgeDark
@@ -83,12 +84,14 @@ import Layout from "@layouts/root.astro";
 
                 {/* Decorative background shapes */}
                 <div class="absolute inset-0 -z-10" aria-hidden="true">
+                    {/* Bottom Left */}
                     <div
-                        class="absolute top-1/2 -left-1/24 size-56 rounded-full bg-chart-5/2 blur-3xl md:size-80"
+                        class="absolute top-1/2 -left-1/24 size-56 rounded-full bg-chart-1/3 blur-3xl md:size-80"
                     >
                     </div>
+                    {/* Top Right */}
                     <div
-                        class="absolute -top-1/3 right-1 size-64 rounded-full bg-chart-3/5 blur-3xl md:top-[unset] md:bottom-1/2 md:size-80 xl:size-96"
+                        class="absolute -top-1/3 right-1 size-64 rounded-full bg-chart-4/6 blur-3xl md:top-[unset] md:bottom-1/2 md:size-80 xl:size-96"
                     >
                     </div>
                 </div>
@@ -158,16 +161,22 @@ import Layout from "@layouts/root.astro";
                             tools.
                         </p>
 
-                        <div class="grid items-center gap-4 sm:flex mt-4">
+                        <div class="mt-4 grid items-center gap-4 sm:flex">
                             <a
-                                class={buttonVariants({ variant: "default", size: "lg" })}
+                                class={buttonVariants({
+                                    variant: "default",
+                                    size: "lg",
+                                })}
                                 href="https://auth.veblex.com/"
                             >
                                 Create Your Account
                                 <ArrowRight class="size-4" />
                             </a>
                             <a
-                                class={buttonVariants({ variant: "outline", size: "lg" })}
+                                class={buttonVariants({
+                                    variant: "outline",
+                                    size: "lg",
+                                })}
                                 href="/about"
                             >
                                 Learn more

@@ -7,7 +7,6 @@ import { Card } from "@workspace/ui/components/card";
 import { roadmap } from "@/data/roadmap";
 
 import Layout from "@layouts/root.astro";
-import CTA from "@components/basic-cta.astro";
 
 const principles = [
     {
@@ -41,6 +40,7 @@ const principles = [
     page="About"
     title="About Veblex - The Unified Digital Ecosystem for Fitness & Security"
     description="Learn how Veblex unifies modular services under one identity, design language, and auth layer. Built for developers and teams."
+    footer={{ showCTA: true }}
 >
     <main class="flex-1">
         {/* Hero */}
@@ -183,7 +183,5 @@ const principles = [
                 </div>
             </div>
         </section>
-
-        <CTA />
     </main>
 </Layout>

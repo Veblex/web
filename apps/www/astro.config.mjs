@@ -18,7 +18,12 @@ export default defineConfig({
     fonts: [
         {
             provider: fontProviders.fontsource(),
-            name: "Rubik",
+            name: "IBM Plex Sans",
+            cssVariable: "--font-heading",
+        },
+        {
+            provider: fontProviders.fontsource(),
+            name: "Oxanium",
             cssVariable: "--font-sans",
         },
     ],

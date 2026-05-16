@@ -53,7 +53,7 @@ export function Services({
                     {service.category}
                 </p>
 
-                <TitleTag className="text-2xl font-semibold">
+                <TitleTag className="text-2xl font-semibold font-heading">
                     {service.title}
                 </TitleTag>
 

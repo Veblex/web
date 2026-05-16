@@ -10,18 +10,27 @@ import { Font } from "astro:assets";
 
 const url = Astro.url;
 
+type FooterConfig = {
+    showCTA?: boolean;
+};
+const defaultFooterConfig: FooterConfig = {
+    showCTA: false,
+};
+
 const {
     title,
     page,
     description,
     author,
     do_not_index,
+    footer = defaultFooterConfig,
 }: {
     title?: string;
     page?: string;
     description?: string;
     author?: string;
     do_not_index?: boolean;
+    footer?: FooterConfig;
 } = Astro.props;
 const page_title =
     !title && page ? `${page} - Veblex` : !title && !page ? "Veblex" : title;
@@ -74,13 +83,14 @@ const page_title =
         <ClientRouter />
 
         <Font cssVariable="--font-sans" preload />
+        <Font cssVariable="--font-heading" preload />
     </head>
     <body>
         <ThemeProvider client:only="react">
             <div class="flex min-h-screen flex-col">
                 <Header />
                 <slot />
-                <Footer />
+                <Footer {...footer} />
             </div>
         </ThemeProvider>
     </body>

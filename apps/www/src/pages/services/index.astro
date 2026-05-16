@@ -3,13 +3,13 @@ import { Layers } from "@lucide/astro";
 import { Services as ServicesComp } from "@components/services";
 
 import Layout from "@layouts/root.astro";
-import CTA from "@components/basic-cta.astro";
 ---
 
 <Layout
     page="Services"
     title="Veblex Services - Gym, Calendar, Auth & More"
     description="Explore the Veblex service suite: Gym, Calendar, Auth (SSO), plus Mail, Insights, and Cloud coming soon. Modular and integrated."
+    footer={{ showCTA: true }}
 >
     <main class="flex-1">
         {/* Hero */}
@@ -62,7 +62,5 @@ import CTA from "@components/basic-cta.astro";
                 </div>
             </div>
         </section>
-
-        <CTA secondaryActionText="About Veblex" secondaryActionHref="/about" />
     </main>
 </Layout>

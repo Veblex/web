@@ -1,0 +1,29 @@
+---
+import Layout from "@layouts/root.astro";
+---
+
+<Layout
+    page="Contact Us"
+    title="Contact Veblex"
+    description="Have questions about or services? Reach out to the Veblex team via email, or our contact form."
+    footer={{ showCTA: true }}
+>
+    <main class="flex-1">
+        {/* Hero */}
+        <section
+            class="container mx-auto grid min-h-[60vh] px-4 py-24 sm:px-6 lg:max-w-4xl lg:items-center lg:px-8 lg:text-center"
+        >
+            <div>
+                <h1
+                    class="mt-8 mb-6 text-4xl leading-tight font-bold md:text-6xl"
+                >
+                    Contact Us
+                </h1>
+                <p class="text-muted-foreground sm:text-lg">
+                    If you have any questions regarding any of our services, you
+                    can contact us via email, or our contact form below.
+                </p>
+            </div>
+        </section>
+    </main>
+</Layout>
