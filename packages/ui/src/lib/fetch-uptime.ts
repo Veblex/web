@@ -16,8 +16,11 @@ export type UptimeData = ErrorData | SuccessData;
 
 export async function fetchUptime(apiKey: string): Promise<UptimeData> {
     const res = await fetch("https://api.veblex.com/health/uptime", {
-        headers: { "x-api-key": apiKey },
+        headers: { "x-api-key": apiKey.trim() },
     });
-    if (!res.ok) throw new Error(`Uptime fetch failed: ${res.status}`);
+    if (!res.ok) {
+        const body = await res.text();
+        throw new Error(`Uptime fetch failed: ${res.status} — ${body}`);
+    }
     return res.json();
 }
