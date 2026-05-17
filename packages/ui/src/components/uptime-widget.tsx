@@ -1,14 +1,12 @@
 "use client";
 
 import { useUptime } from "@workspace/ui/lib/use-uptime";
-import type { UptimeData } from "@workspace/ui/lib/fetch-uptime";
 
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { cn } from "@workspace/ui/lib/utils";
 
 interface Props {
     className?: string;
-    initialData?: UptimeData;
     pollInterval?: number;
 }
 
@@ -26,16 +24,10 @@ const badgeVariants = cva("flex size-2.5 rounded-full ring-3", {
     },
 });
 
-export function UptimeWidget({
-    className,
-    initialData,
-    pollInterval = 0,
-}: Props) {
+export function UptimeWidget({ className, pollInterval = 0 }: Props) {
     const { data, error } = useUptime(pollInterval);
-    const uptime = data ?? initialData;
 
-    const rawStatus = !data ? "unkown" : (data.status as "ok" | "degraded");
-    const status = error || !uptime ? "unkown" : rawStatus;
+    const status = error || !data || "error" in data ? "unkown" : data.status;
 
     const messages: Record<string, string> = {
         ok: "All services up",
