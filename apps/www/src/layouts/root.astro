@@ -54,6 +54,7 @@ const page_title =
 
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href={url} />
 
         <meta name="generator" content={Astro.generator} />
 
@@ -63,22 +64,26 @@ const page_title =
                 ? "noindex, nofollow"
                 : "index, follow"}
         />
-        <meta property="og:type" content="website" />
 
         <title>{page_title}</title>
-        <meta name="og:title" content={page_title} />
-        <meta name="og:site_name" content="Veblex" />
-        <meta name="twitter:title" content={page_title} />
+        <meta name="description" content={description} />
+        <meta name="author" content={!author ? "Veblex" : author} />
 
+        <meta property="og:type" content="website" />
         <meta name="og:url" content={url} />
+        <meta name="og:title" content={page_title} />
+        <meta name="og:description" content={description} />
+        <meta name="og:site_name" content="Veblex" />
+        <meta property="og:image" content="https://www.veblex.com/og.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={page_title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content="https://www.veblex.com/og.png" />
         <meta property="twitter:url" content={url} />
         <meta property="twitter:domain" content={url.origin} />
-
-        <meta name="description" content={description} />
-        <meta name="og:description" content={description} />
-        <meta name="twitter:description" content={description} />
-
-        <meta name="author" content={!author ? "Veblex" : author} />
 
         <ClientRouter />
 
@@ -86,7 +91,7 @@ const page_title =
         <Font cssVariable="--font-heading" preload />
     </head>
     <body>
-        <ThemeProvider client:only="react">
+        <ThemeProvider client:load>
             <div class="flex min-h-screen flex-col">
                 <Header />
                 <slot />

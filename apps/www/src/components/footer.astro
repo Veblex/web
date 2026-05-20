@@ -21,7 +21,7 @@ const ctaProps: CTAProps = isServicesPage
 
 const year = new Date().getFullYear();
 
-const contactMail = "contact@veblex.com";
+// const contactMail = "contact@veblex.com";
 
 const socialLinks = [
     {
@@ -57,7 +57,7 @@ const footerLinks: {
             },
             {
                 name: "Moviestix",
-                href: "https://moviestix.com/",
+                href: "https://www.moviestix.com/",
             },
         ],
     },
@@ -173,7 +173,7 @@ const footerLinks: {
             <p class="text-sm text-muted-foreground">
                 &copy; {year} Veblex. All rights reserved.
             </p>
-            <UptimeWidget client:load />
+            <UptimeWidget client:only="react" />
         </div>
     </div>
 </footer>
