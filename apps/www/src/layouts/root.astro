@@ -9,6 +9,7 @@ import { ClientRouter } from "astro:transitions";
 import { Font } from "astro:assets";
 
 const url = Astro.url;
+const ogUrl = `${url.origin}/og.png`;
 
 type FooterConfig = {
     showCTA?: boolean;
@@ -74,14 +75,14 @@ const page_title =
         <meta name="og:title" content={page_title} />
         <meta name="og:description" content={description} />
         <meta name="og:site_name" content="Veblex" />
-        <meta property="og:image" content="https://www.veblex.com/og.png" />
+        <meta property="og:image" content={ogUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={page_title} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content="https://www.veblex.com/og.png" />
+        <meta name="twitter:image" content={ogUrl} />
         <meta property="twitter:url" content={url} />
         <meta property="twitter:domain" content={url.origin} />
 
