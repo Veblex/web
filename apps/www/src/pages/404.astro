@@ -1,16 +1,77 @@
 ---
 import Layout from "@layouts/root.astro";
+import { ArrowLeft, CircleQuestionMark, Grid2x2, House, Rocket } from "@lucide/astro";
+import { buttonVariants } from "@workspace/ui/components/button";
+import { Card } from "@workspace/ui/components/card";
 ---
 
 <Layout page="Page Not Found" do_not_index={true}>
-    <main
-        class="flex-1 mx-auto container flex items-center justify-center text-center py-24 px-4 sm:px-6 lg:px-8"
-    >
-        <div>
-            <span class="text-4xl md:text-6xl font-bold leading-tight mt-8 mb-6">
-                404
-            </span>
-            <h1 class="sm:text-lg">Page not found</h1>
+    <main class="flex items-center flex-1">
+        <div class="container mx-auto max-w-2xl flex flex-col justify-center px-4 py-24 text-center sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <h1 class="font-heading text-8xl font-bold tracking-tighter md:text-9xl">
+                    <span class="text-gradient">404</span>
+                </h1>
+                <div class="text-gradient mx-auto mt-4 h-1 w-24 rounded-full"></div>
+            </div>
+
+            <h2 class="mb-4 font-heading text-2xl font-bold text-foreground md:text-3xl">
+                Page not found
+            </h2>
+
+            <p class="mx-auto mb-10 max-w-md text-lg leading-relaxed text-muted-foreground">
+                We couldn't find this page. It might have been moved, renamed, or never existed.
+            </p>
+
+            <div class="mb-10 grid gap-4 sm:grid-cols-3">
+                <a href="/" >
+                    <Card className="items-center" doHover={true}>
+                        <House class="size-6"/>
+                        <span class="font-heading text-sm font-medium text-foreground">
+                            Home
+                        </span>
+                    </Card>
+                </a>
+                <a href="/services">
+                    <Card className="items-center" doHover={true}>
+                        <Grid2x2 class="size-6"/>
+                        <span class="font-heading text-sm font-medium text-foreground">
+                            Services
+                        </span>
+                    </Card>
+                </a>
+                <a href="/about">
+                    <Card className="items-center" doHover={true}>
+                        <CircleQuestionMark class="size-6"/>
+                        <span class="font-heading text-sm font-medium text-foreground">
+                            About
+                        </span>
+                    </Card>
+                </a>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <a
+                    href="/"
+                    class={buttonVariants({
+                        variant: "default",
+                        size: "lg",
+                    })}
+                >
+                    <ArrowLeft class="size-4" />
+                    Back to Home
+                </a>
+                <a
+                    href="/services"
+                    class={buttonVariants({
+                        variant: "outline",
+                        size: "lg",
+                    })}
+                >
+                    <Rocket class="size-4" />
+                    Explore Services
+                </a>
+            </div>
         </div>
     </main>
 </Layout>

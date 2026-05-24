@@ -8,7 +8,8 @@ import Footer from "@components/footer.astro";
 import { ClientRouter } from "astro:transitions";
 import { Font } from "astro:assets";
 
-const url = Astro.url;
+const origin = Astro.site?.origin ?? "";
+const url = `${origin}${Astro.url.pathname}`;
 
 type FooterConfig = {
     showCTA?: boolean;
@@ -23,6 +24,7 @@ const {
     description,
     author,
     do_not_index,
+    og = "og.png",
     footer = defaultFooterConfig,
 }: {
     title?: string;
@@ -30,10 +32,13 @@ const {
     description?: string;
     author?: string;
     do_not_index?: boolean;
+    og?: string;
     footer?: FooterConfig;
 } = Astro.props;
+
 const page_title =
     !title && page ? `${page} - Veblex` : !title && !page ? "Veblex" : title;
+const ogUrl = `${origin}/${og ?? "og.png"}`;
 ---
 
 <html lang="en">
@@ -54,6 +59,7 @@ const page_title =
 
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href={url} />
 
         <meta name="generator" content={Astro.generator} />
 
@@ -63,22 +69,26 @@ const page_title =
                 ? "noindex, nofollow"
                 : "index, follow"}
         />
-        <meta property="og:type" content="website" />
 
         <title>{page_title}</title>
-        <meta name="og:title" content={page_title} />
-        <meta name="og:site_name" content="Veblex" />
-        <meta name="twitter:title" content={page_title} />
-
-        <meta name="og:url" content={url} />
-        <meta property="twitter:url" content={url} />
-        <meta property="twitter:domain" content={url.origin} />
-
         <meta name="description" content={description} />
-        <meta name="og:description" content={description} />
-        <meta name="twitter:description" content={description} />
-
         <meta name="author" content={!author ? "Veblex" : author} />
+
+        <meta property="og:type" content="website" />
+        <meta name="og:url" content={url} />
+        <meta name="og:title" content={page_title} />
+        <meta name="og:description" content={description} />
+        <meta name="og:site_name" content="Veblex" />
+        <meta property="og:image" content={ogUrl} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={page_title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogUrl} />
+        <meta property="twitter:url" content={url} />
+        <meta property="twitter:domain" content={origin} />
 
         <ClientRouter />
 
@@ -86,7 +96,7 @@ const page_title =
         <Font cssVariable="--font-heading" preload />
     </head>
     <body>
-        <ThemeProvider client:only="react">
+        <ThemeProvider client:load>
             <div class="flex min-h-screen flex-col">
                 <Header />
                 <slot />

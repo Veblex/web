@@ -3,7 +3,7 @@
     "extends": ["//"],
     "tasks": {
         "build": {
-            "env": ["API_KEY_UPTIME"]
+            "env": ["API_KEY_UPTIME", "SITE_URL"]
         }
     }
 }
