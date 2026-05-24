@@ -8,8 +8,11 @@ import Footer from "@components/footer.astro";
 import { ClientRouter } from "astro:transitions";
 import { Font } from "astro:assets";
 
-const url = Astro.url;
-const ogUrl = `${url.origin}/og.png`;
+import { getOrigin } from "@/utils/getOrigin";
+
+const origin = getOrigin(Astro.request);
+const ogUrl  = `${origin}/og.png`;
+const url = `${origin}${Astro.url.pathname}`;
 
 type FooterConfig = {
     showCTA?: boolean;
@@ -84,7 +87,7 @@ const page_title =
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={ogUrl} />
         <meta property="twitter:url" content={url} />
-        <meta property="twitter:domain" content={url.origin} />
+        <meta property="twitter:domain" content={origin} />
 
         <ClientRouter />
 
