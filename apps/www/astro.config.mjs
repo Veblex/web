@@ -7,6 +7,7 @@ import vercelStatic from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
+    site: process.env.SITE_URL ?? "http://localhost:4321",
     vite: {
         plugins: [tailwindcss()],
         optimizeDeps: {
