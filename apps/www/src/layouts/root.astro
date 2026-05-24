@@ -14,6 +14,13 @@ const origin = getOrigin(Astro.request);
 const ogUrl  = `${origin}/og.png`;
 const url = `${origin}${Astro.url.pathname}`;
 
+/**
+ * Temp debug
+ */
+const headers = Object.fromEntries(Astro.request.headers.entries());
+console.log("Headers:", JSON.stringify(headers, null, 2));
+console.log("request.url:", Astro.request.url);
+
 type FooterConfig = {
     showCTA?: boolean;
 };
