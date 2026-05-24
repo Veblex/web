@@ -3,6 +3,7 @@
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, fontProviders } from "astro/config";
 import react from "@astrojs/react";
+import vercelStatic from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
@@ -28,5 +29,6 @@ export default defineConfig({
         },
     ],
     integrations: [react()],
-    output: "static"
+    output: "static",
+    adapter: vercelStatic(),
 });
