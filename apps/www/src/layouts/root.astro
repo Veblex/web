@@ -9,7 +9,6 @@ import { ClientRouter } from "astro:transitions";
 import { Font } from "astro:assets";
 
 const origin = Astro.site?.origin ?? "";
-const ogUrl = `${origin}/og.png`;
 const url = `${origin}${Astro.url.pathname}`;
 
 type FooterConfig = {
@@ -25,6 +24,7 @@ const {
     description,
     author,
     do_not_index,
+    og = "og.png",
     footer = defaultFooterConfig,
 }: {
     title?: string;
@@ -32,10 +32,13 @@ const {
     description?: string;
     author?: string;
     do_not_index?: boolean;
+    og?: string;
     footer?: FooterConfig;
 } = Astro.props;
+
 const page_title =
     !title && page ? `${page} - Veblex` : !title && !page ? "Veblex" : title;
+const ogUrl = `${origin}/${og ?? "og.png"}`;
 ---
 
 <html lang="en">

@@ -122,7 +122,7 @@
     --input: oklch(0.25 0.05 221.44 / 50%);
     --ring: oklch(0.547 0.021 43.1);
 
-    --chart-1: oklch(0.81 0.13 182.02);
+    --chart-1: oklch(77.099% 0.12397 181.758);
     --chart-2: oklch(0.76 0.13 192.87);
     --chart-3: oklch(0.71 0.12 203.17);
     --chart-4: oklch(0.66 0.11 212.95);
@@ -167,5 +167,9 @@
 @layer utilities {
     .text-gradient {
         @apply bg-linear-to-r from-chart-1 to-chart-5 bg-clip-text text-transparent;
+    }
+
+    .code {
+        @apply rounded bg-muted px-1.5 py-0.5 text-sm text-foreground;
     }
 }
