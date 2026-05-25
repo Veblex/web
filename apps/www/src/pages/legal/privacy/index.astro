@@ -1,17 +1,21 @@
 ---
+import { PrevNext } from "@/components/prev-next";
 import Layout from "@layouts/root.astro";
+import { ArrowLeft } from "@lucide/astro";
 ---
 
-<Layout page="Privacy Policy" description="How Veblex collects, uses, and protects your data across our ecosystem of services.">
+<Layout
+    page="Privacy Policy"
+    description="How Veblex collects, uses, and protects your data across our ecosystem of services."
+>
     <main class="flex-1">
-        <article
-            class="mx-auto container max-w-2xl px-4 sm:px-6 lg:px-8 py-16"
-        >
+        <article class="container mx-auto max-w-2xl px-4 py-16 sm:px-6 lg:px-8">
             <section>
                 <a
                     href="/legal"
-                    class="text-muted-foreground font-mono uppercase underline-offset-2 transition-all duration-300 hover:underline"
+                    class="flex items-center gap-1.5 font-mono text-muted-foreground uppercase underline-offset-2 transition-all duration-300 hover:underline"
                 >
+                    <ArrowLeft class="size-4" />
                     Legal
                 </a>
                 <h1 class="my-4 text-4xl font-bold tracking-tight sm:text-4xl">
@@ -27,33 +31,66 @@ import Layout from "@layouts/root.astro";
 
             <section id="information-we-collect" class="mt-12">
                 <h2 class="text-xl">Information We Collect</h2>
-                <p class="mt-2 text-muted-foreground">We collect information you provide directly, such as account details, usage data, and technical information like device type and IP address when you interact with Veblex services.</p>
+                <p class="mt-2 text-muted-foreground">
+                    We collect information you provide directly, such as account
+                    details, usage data, and technical information like device
+                    type and IP address when you interact with Veblex services.
+                </p>
             </section>
 
             <section id="how-we-use-your-information" class="mt-12">
                 <h2 class="text-xl">How We Use Your Information</h2>
-                <p class="mt-2 text-muted-foreground">Your data helps us deliver and improve Veblex services, personalize your experience, maintain security, and communicate important updates about the ecosystem.</p>
+                <p class="mt-2 text-muted-foreground">
+                    Your data helps us deliver and improve Veblex services,
+                    personalize your experience, maintain security, and
+                    communicate important updates about the ecosystem.
+                </p>
             </section>
 
             <section id="data-sharing" class="mt-12">
                 <h2 class="text-xl">Data Sharing</h2>
-                <p class="mt-2 text-muted-foreground">We do not sell your personal information. Data may be shared with service providers who assist in operating the Veblex ecosystem, subject to strict confidentiality obligations.</p>
+                <p class="mt-2 text-muted-foreground">
+                    We do not sell your personal information. Data may be shared
+                    with service providers who assist in operating the Veblex
+                    ecosystem, subject to strict confidentiality obligations.
+                </p>
             </section>
 
             <section id="data-security" class="mt-12">
                 <h2 class="text-xl">Data Security</h2>
-                <p class="mt-2 text-muted-foreground">We implement industry-standard security measures including encryption, access controls, and regular audits to protect your information across all Veblex services.</p>
+                <p class="mt-2 text-muted-foreground">
+                    We implement industry-standard security measures including
+                    encryption, access controls, and regular audits to protect
+                    your information across all Veblex services.
+                </p>
             </section>
 
             <section id="your-rights" class="mt-12">
                 <h2 class="text-xl">Your Rights</h2>
-                <p class="mt-2 text-muted-foreground">You have the right to access, correct, delete, or export your personal data. Contact us to exercise any of these rights regarding your Veblex account.</p>
+                <p class="mt-2 text-muted-foreground">
+                    You have the right to access, correct, delete, or export
+                    your personal data. Contact us to exercise any of these
+                    rights regarding your Veblex account.
+                </p>
             </section>
 
             <section id="contact" class="mt-12">
                 <h2 class="text-xl">Contact</h2>
-                <p class="mt-2 text-muted-foreground">For privacy-related inquiries, reach out to us at <a href="mailto:legal@veblex.com" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2">legal@veblex.com</a>.</p>
+                <p class="mt-2 text-muted-foreground">
+                    For privacy-related inquiries, reach out to us at <a
+                        href="mailto:legal@veblex.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="underline underline-offset-2">legal@veblex.com</a
+                    >.
+                </p>
             </section>
+
+            <PrevNext
+                className="mt-12 border-t border-border pt-12"
+                prev={{ url: "/legal/cookies", title: "Cookie Policy" }}
+                next={{ url: "/legal/terms", title: "Terms of Service" }}
+            />
         </article>
     </main>
 </Layout>
