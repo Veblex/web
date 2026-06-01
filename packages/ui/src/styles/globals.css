@@ -119,8 +119,8 @@
 
     --destructive: oklch(0.704 0.191 22.216);
     --border: oklch(1 0 0 / 10%);
-    --input: oklch(0.25 0.05 221.44 / 50%);
-    --ring: oklch(0.547 0.021 43.1);
+    --input: oklch(12.295% 0.02114 208.068);
+    --ring: oklch(0.25 0.05 221.44);
 
     --chart-1: oklch(77.099% 0.12397 181.758);
     --chart-2: oklch(0.76 0.13 192.87);
@@ -135,7 +135,7 @@
     --sidebar-accent: oklch(0.268 0.011 36.5);
     --sidebar-accent-foreground: oklch(0.986 0.002 67.8);
     --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.547 0.021 43.1);
+    --sidebar-ring: oklch(0.25 0.05 221.44);
 }
 
 @theme {
@@ -173,5 +173,11 @@
 
     .code {
         @apply rounded bg-muted px-1.5 py-0.5 text-sm text-foreground;
+    }
+
+    .glow-box {
+        box-shadow:
+            0 0 0 1px color-mix(in oklab, var(--foreground) 5%, transparent),
+            0 0 88px -20px color-mix(in oklab, var(--primary) 45%, transparent);
     }
 }
