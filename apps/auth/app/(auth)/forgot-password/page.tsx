@@ -15,7 +15,7 @@ import {
 } from "@workspace/ui/components/field";
 import { Input } from "@workspace/ui/components/input";
 import Link from "next/link";
-import { Header } from "@/components/auth/form";
+import { Header } from "@/components/auth/header";
 
 const formSchema = z.object({
     email: z.string().email(),
@@ -52,7 +52,7 @@ export default function Page() {
     }
 
     return (
-        <div className="space-y-6">
+        <>
             <Header
                 title={sent ? "Check your inbox" : "Reset your password"}
                 description={
@@ -120,6 +120,6 @@ export default function Page() {
                     Sign in
                 </Link>
             </p>
-        </div>
+        </>
     );
 }

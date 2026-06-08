@@ -15,8 +15,9 @@ import {
 } from "@workspace/ui/components/field";
 import { Input } from "@workspace/ui/components/input";
 import Link from "next/link";
-import { Header } from "@/components/auth/form";
+import { Header } from "@/components/auth/header";
 import { useRouter } from "next/navigation";
+import { PasswordInput } from "@workspace/ui/components/password-input";
 
 const formSchema = z.object({
     username: z
@@ -60,10 +61,10 @@ export default function Page() {
     }
 
     return (
-        <div className="space-y-6">
+        <>
             <Header
-                title="Welcome back"
-                description="Sign in to your Veblex account."
+                title="Sign in"
+                description="Sign in to your Veblex account"
             />
 
             <form
@@ -77,12 +78,12 @@ export default function Page() {
                         control={form.control}
                         render={({ field, fieldState }) => (
                             <Field data-invalid={fieldState.invalid}>
-                                <FieldLabel htmlFor="form-login-username">
+                                <FieldLabel htmlFor="username">
                                     Username or email
                                 </FieldLabel>
                                 <Input
                                     {...field}
-                                    id="form-login-username"
+                                    id="username"
                                     aria-invalid={fieldState.invalid}
                                     placeholder="you@example.com"
                                     autoComplete="username email"
@@ -99,7 +100,7 @@ export default function Page() {
                         render={({ field, fieldState }) => (
                             <Field data-invalid={fieldState.invalid}>
                                 <FieldLabel
-                                    htmlFor="form-login-password"
+                                    htmlFor="password"
                                     className="justify-between"
                                 >
                                     Password
@@ -110,13 +111,12 @@ export default function Page() {
                                         Forgot?
                                     </Link>
                                 </FieldLabel>
-                                <Input
+                                <PasswordInput
                                     {...field}
-                                    id="form-login-password"
+                                    id="password"
                                     aria-invalid={fieldState.invalid}
                                     placeholder="••••••••••••"
                                     autoComplete="password"
-                                    type="password"
                                 />
                                 {fieldState.invalid && (
                                     <FieldError errors={[fieldState.error]} />
@@ -145,6 +145,6 @@ export default function Page() {
                     Create an account
                 </Link>
             </p>
-        </div>
+        </>
     );
 }

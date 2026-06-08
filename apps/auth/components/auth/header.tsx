@@ -10,7 +10,7 @@ export function Header({
     description?: string;
 }) {
     return (
-        <div className={cn("space-y-2", className)}>
+        <div className={cn("space-y-3 text-center mt-2", className)}>
             <h1 className="font-heading text-xl font-semibold sm:text-2xl">
                 {title}
             </h1>
