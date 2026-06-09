@@ -23,7 +23,6 @@ import { PasswordInput } from "@workspace/ui/components/password-input";
 import {
     InputOTP,
     InputOTPGroup,
-    InputOTPSeparator,
     InputOTPSlot,
 } from "@workspace/ui/components/input-otp";
 import {
@@ -148,7 +147,7 @@ export default function Page() {
         toast("Account created (demo)", {
             description: "Welcome to Veblex.",
         });
-        // router.push("/dashboard");
+        router.push("/dashboard");
     };
 
     const meta = STEP_META[step];
@@ -259,6 +258,7 @@ export default function Page() {
                                 maxLength={6}
                                 value={code}
                                 onChange={setCode}
+                                autoComplete="one-time-code"
                             >
                                 <InputOTPGroup>
                                     {[0, 1, 2, 3, 4, 5].map((i) => (

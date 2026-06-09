@@ -54,17 +54,13 @@ export default function Page() {
     return (
         <>
             <Header
-                title={sent ? "Check your inbox" : "Reset your password"}
-                description={
-                    sent
-                        ? "If an account exists for that email, we've sent reset instructions."
-                        : "Enter the email associated with your Veblex account."
-                }
+                title={"Change password"}
+                description={"Set your new Veblex account password"}
             />
 
             {!sent ? (
                 <form
-                    id="forgot-password"
+                    id="form-forgot-password"
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="space-y-6"
                 >
@@ -74,12 +70,12 @@ export default function Page() {
                             control={form.control}
                             render={({ field, fieldState }) => (
                                 <Field data-invalid={fieldState.invalid}>
-                                    <FieldLabel htmlFor="email">
+                                    <FieldLabel htmlFor="form-forgot-password-email">
                                         Email
                                     </FieldLabel>
                                     <Input
                                         {...field}
-                                        id="email"
+                                        id="form-forgot-password-email"
                                         aria-invalid={fieldState.invalid}
                                         placeholder="you@example.com"
                                         autoComplete="email"
@@ -96,7 +92,7 @@ export default function Page() {
 
                     <Button
                         type="submit"
-                        form="forgot-password"
+                        form="form-forgot-password"
                         className="h-11 w-full font-medium"
                         disabled={form.formState.isSubmitting}
                     >
