@@ -1,7 +1,7 @@
 ---
 import Layout from "@layouts/root.astro";
 import { ArrowRight, Cookie, FileText, Shield } from "@lucide/astro";
-import { cn } from "@workspace/ui/lib/utils";
+import { Card } from "@workspace/ui/components/card";
 
 const legalPages = [
     {
@@ -31,10 +31,14 @@ const legalPages = [
 ];
 ---
 
-<Layout page="Legal" title="Legal - Veblex Privacy, Terms & Cookies" description="Review Veblex legal policies: Privacy Policy, Terms of Service, and Cookie Policy. Transparency across the Veblex ecosystem.">
+<Layout
+    page="Legal"
+    title="Legal - Veblex Privacy, Terms & Cookies"
+    description="Review Veblex legal policies: Privacy Policy, Terms of Service, and Cookie Policy. Transparency across the Veblex ecosystem."
+>
     <main class="flex-1">
         <section
-            class="mx-auto container px-4 py-8 sm:px-6 lg:px-8 mt-16 space-y-20"
+            class="container mx-auto mt-16 space-y-20 px-4 py-8 sm:px-6 lg:px-8"
         >
             <div class="mx-auto max-w-2xl">
                 <h1 class="my-4 text-4xl font-bold tracking-tight">
@@ -47,29 +51,30 @@ const legalPages = [
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {
                     legalPages.map((page) => (
                         <a
                             href={page.href}
-                            class={cn(
-                                "group cursor-pointer flex flex-col bg-card rounded-lg border border-primary/30 p-6 space-y-2 transition-all duration-300 hover:border-primary/50 hover:scale-[1.02]",
+                            class={
                                 page.featured
-                                    ? "md:row-span-2 xl:row-span-1"
-                                    : "",
-                            )}
+                                    ? "grid md:row-span-2 xl:row-span-1"
+                                    : ""
+                            }
                         >
-                            <h2 class="text-2xl font-bold tracking-tight">
-                                {page.title}
-                            </h2>
+                            <Card doHover={true}>
+                                <h2 class="text-2xl font-bold tracking-tight">
+                                    {page.title}
+                                </h2>
 
-                            <p class="text-muted-foreground flex-1">
-                                {page.description}
-                            </p>
+                                <p class="flex-1 text-muted-foreground">
+                                    {page.description}
+                                </p>
 
-                            <span class="mt-auto pt-6 flex gap-1 items-center transition-all duration-300 group-hover:ml-1.5">
-                                Read more <ArrowRight class="size-5" />
-                            </span>
+                                <span class="mt-auto flex items-center gap-1 pt-6 transition-all duration-300 group-hover/card:ml-1.5">
+                                    Read more <ArrowRight class="size-5" />
+                                </span>
+                            </Card>
                         </a>
                     ))
                 }

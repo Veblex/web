@@ -1,11 +1,13 @@
-import { Geist_Mono, Oxanium } from "next/font/google";
+import { Geist_Mono, Oxanium, IBM_Plex_Sans } from "next/font/google";
 
 import "@workspace/ui/globals.css";
 import { ThemeProvider } from "@workspace/ui/components/theme-provider";
 import { cn } from "@workspace/ui/lib/utils";
 import { TooltipProvider } from "@workspace/ui/components/tooltip";
+import { Toaster } from "@workspace/ui/components/sonner";
 
 const oxanium = Oxanium({ subsets: ["latin"], variable: "--font-sans" });
+const ibm = IBM_Plex_Sans({ subsets: ["latin"], variable: "--font-heading" });
 
 const fontMono = Geist_Mono({
     subsets: ["latin"],
@@ -24,6 +26,8 @@ export default function RootLayout({
             className={cn(
                 "antialiased",
                 fontMono.variable,
+                "font-heading",
+                ibm.variable,
                 "font-sans",
                 oxanium.variable
             )}
@@ -33,7 +37,10 @@ export default function RootLayout({
             </head>
             <body>
                 <ThemeProvider>
-                    <TooltipProvider>{children}</TooltipProvider>
+                    <TooltipProvider>
+                        {children}
+                        <Toaster />
+                    </TooltipProvider>
                 </ThemeProvider>
             </body>
         </html>
