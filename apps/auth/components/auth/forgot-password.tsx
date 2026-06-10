@@ -17,6 +17,8 @@ import { Input } from "@workspace/ui/components/input";
 import Link from "next/link";
 import { Header } from "@/components/auth/header";
 
+import { requestPasswordReset } from "@/lib/actions/request-password-reset";
+
 const formSchema = z.object({
     email: z.string().email("Enter a valid email").max(255),
 });
@@ -32,23 +34,14 @@ export function ForgotPassword() {
     });
 
     async function onSubmit(data: z.infer<typeof formSchema>) {
-        await new Promise((r) => setTimeout(r, 600));
-        setSent(true);
+        const result = await requestPasswordReset(data);
 
-        toast("The form is not yet complete", {
-            description: (
-                <pre className="bg-code text-code-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4">
-                    <code>{JSON.stringify(data, null, 2)}</code>
-                </pre>
-            ),
-            position: "bottom-right",
-            classNames: {
-                content: "flex flex-col gap-2",
-            },
-            style: {
-                "--border-radius": "calc(var(--radius)  + 4px)",
-            } as CSSProperties,
-        });
+        if (result.error) {
+            toast.error(result.error);
+            return;
+        }
+
+        setSent(true);
     }
 
     return (
