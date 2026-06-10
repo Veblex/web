@@ -24,7 +24,8 @@ export function proxy(request: NextRequest) {
 
     if (pathname === "/") {
         return NextResponse.redirect(
-            new URL(token ? "/dashboard" : "/login", request.url)
+            new URL(token ? "/dashboard" : "/login", request.url),
+            { status: token ? 302 : 308 }
         );
     }
 
