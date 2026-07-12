@@ -31,6 +31,7 @@ import {
     FieldGroup,
     FieldLabel,
 } from "@workspace/ui/components/field";
+import { complete, request, verify } from "@/lib/actions/signup";
 
 const emailSchema = z.object({
     email: z.string().email("Enter a valid email").max(255),
@@ -91,6 +92,7 @@ export function Signup() {
     const [step, setStep] = useState<Step>("email");
     const [email, setEmail] = useState("");
     const [code, setCode] = useState("");
+    const [token, setToken] = useState("");
     const [verifying, setVerifying] = useState(false);
     const [sending, setSending] = useState(false);
 
@@ -103,8 +105,17 @@ export function Signup() {
 
     const onSendCode = async (data: EmailData) => {
         setSending(true);
-        await new Promise((r) => setTimeout(r, 600));
+
+        const res = await request(data);
+        if (!res.success) {
+            toast.error(res.error);
+
+            emailForm.setError("email", { type: "server", message: res.error });
+
+            return;
+        }
         setEmail(data.email);
+
         setSending(false);
         setStep("code");
         toast("Code sent", {
@@ -115,7 +126,14 @@ export function Signup() {
     const onVerifyCode = async () => {
         if (code.length !== 6) return;
         setVerifying(true);
-        await new Promise((r) => setTimeout(r, 600));
+
+        const res = await verify({ email, code });
+        if (!res.success) {
+            toast.error(res.error);
+            return;
+        }
+
+        setToken(res.token!);
         setVerifying(false);
         setStep("profile");
         toast("Email verified", {
@@ -125,7 +143,13 @@ export function Signup() {
 
     const onResend = async () => {
         setSending(true);
-        await new Promise((r) => setTimeout(r, 400));
+
+        const res = await request({ email });
+        if (!res.success) {
+            toast.error(res.error);
+            return;
+        }
+
         setSending(false);
         toast("Code resent", {
             description: `A new code was sent to ${email}`,
@@ -142,11 +166,18 @@ export function Signup() {
         },
     });
 
-    const onCreate = async (_: ProfileData) => {
-        await new Promise((r) => setTimeout(r, 700));
-        toast("Account created (demo)", {
-            description: "Welcome to Veblex.",
+    const onCreate = async (data: ProfileData) => {
+        const res = await complete({
+            email,
+            token,
+            username: data.username,
+            password: data.password,
         });
+        if (!res.success) {
+            toast.error(res.error);
+            return;
+        }
+
         router.push("/dashboard");
     };
 

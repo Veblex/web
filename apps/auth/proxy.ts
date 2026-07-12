@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const AUTH_ROUTES = ["/login", "/signup", "/forgot-password", "/reset-password"];
-const PROTECTED_ROUTES = ["/dashboard", "/settings", "/profile"];
+const AUTH_ROUTES = ["/login", "/signup", "/forgot-password", "/reset-password", "/logout"];
+const PROTECTED_ROUTES = ["/dashboard", "/settings", "/profile", "/change-password"];
 
 export function proxy(request: NextRequest) {
-    const token = request.cookies.get("auth-token")?.value;
+    const token = request.cookies.get("session")?.value;
     const { pathname } = request.nextUrl;
 
     const isAuthRoute = AUTH_ROUTES.some((r) => pathname.startsWith(r));
