@@ -42,18 +42,28 @@ export async function login(data: {
     }
 
     if (!res.ok) {
-        return { success: false, error: "Something went wrong. Please try again." };
+        return {
+            success: false,
+            error: "Something went wrong. Please try again.",
+        };
     }
 
     const payload = await res.json();
 
     const cookieStore = await cookies();
-    cookieStore.set("session", payload.token, {
+    cookieStore.set("accessToken", payload.session.accessToken, {
         httpOnly: true,
         secure: true,
         sameSite: "lax",
         path: "/",
-        maxAge: 60 * 60 * 24 * 7, // 7 days
+        maxAge: payload.session.accessTokenExpiresIn,
+    });
+    cookieStore.set("refreshToken", payload.session.refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "lax",
+        path: "/",
+        maxAge: payload.session.refreshTokenExpiresIn,
     });
 
     return { success: true };
