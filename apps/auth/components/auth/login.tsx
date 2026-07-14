@@ -92,28 +92,35 @@ export function Login() {
                         name="password"
                         control={form.control}
                         render={({ field, fieldState }) => (
-                            <Field data-invalid={fieldState.invalid}>
+                            <Field
+                                data-invalid={fieldState.invalid}
+                                className="grid grid-cols-[1fr_auto] items-center gap-x-2"
+                            >
                                 <FieldLabel
                                     htmlFor="password"
-                                    className="justify-between"
+                                    className="col-start-1 row-start-1"
                                 >
                                     Password
-                                    <Link
-                                        href={"/forgot-password"}
-                                        className="text-sm font-medium text-muted-foreground underline-offset-2 hover:underline"
-                                    >
-                                        Forgot?
-                                    </Link>
                                 </FieldLabel>
+
                                 <PasswordInput
                                     {...field}
                                     id="password"
                                     aria-invalid={fieldState.invalid}
                                     placeholder="••••••••••••"
                                     autoComplete="password"
+                                    parentClassName="col-span-2 row-start-2"
                                 />
+
+                                <Link
+                                    href={"/forgot-password"}
+                                    className="col-start-2 row-start-1 justify-self-end text-sm font-medium text-muted-foreground underline-offset-2 hover:underline"
+                                >
+                                    Forgot?
+                                </Link>
+
                                 {fieldState.invalid && (
-                                    <FieldError errors={[fieldState.error]} />
+                                    <FieldError errors={[fieldState.error]} className="col-span-2" />
                                 )}
                             </Field>
                         )}
