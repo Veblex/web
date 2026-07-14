@@ -45,7 +45,6 @@ const profileSchema = z
             .min(3, "Username must be at least 3 characters")
             .max(32, "Username is too long")
             .regex(/^[a-zA-Z0-9_-]+$/, "Letters, numbers, _ and - only"),
-        name: z.string().min(1, "Name is required").max(80, "Name is too long"),
         password: z
             .string()
             .min(8, "At least 8 characters")
@@ -80,7 +79,7 @@ const STEP_META: Record<
     },
     profile: {
         title: "Complete your account",
-        subtitle: "Just a few more details to secure your account",
+        subtitle: "Just a few more details to complete your account",
         icon: <UserPlus className="h-5 w-5 text-foreground/90" />,
         index: 3,
     },
@@ -160,7 +159,6 @@ export function Signup() {
         resolver: zodResolver(profileSchema),
         defaultValues: {
             username: "",
-            name: "",
             password: "",
             confirm: "",
         },
@@ -349,27 +347,6 @@ export function Signup() {
                     </div>
 
                     <FieldGroup>
-                        <Controller
-                            name="name"
-                            control={profileForm.control}
-                            render={({ field, fieldState }) => (
-                                <Field data-invalid={fieldState.invalid}>
-                                    <FieldLabel htmlFor="name">Name</FieldLabel>
-                                    <Input
-                                        {...field}
-                                        id="name"
-                                        aria-invalid={fieldState.invalid}
-                                        placeholder="Ola Nordman"
-                                        autoComplete="name"
-                                    />
-                                    {fieldState.invalid && (
-                                        <FieldError
-                                            errors={[fieldState.error]}
-                                        />
-                                    )}
-                                </Field>
-                            )}
-                        />
                         <Controller
                             name="username"
                             control={profileForm.control}
