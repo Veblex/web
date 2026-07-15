@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isExpired } from "./lib/jwt";
 
 const AUTH_ROUTES = [
     "/login",
@@ -14,33 +15,47 @@ const PROTECTED_ROUTES = [
     "/change-password",
 ];
 
-function decodeJwtPayload(token: string): { exp?: number } | null {
-    try {
-        const payload = token.split(".")[1];
-        if (!payload) return null;
-        const json = Buffer.from(payload, "base64url").toString("utf8");
-        return JSON.parse(json);
-    } catch {
-        return null;
-    }
-}
-
-function isExpired(token?: string): boolean {
-    if (!token) return true;
-    const payload = decodeJwtPayload(token);
-    if (!payload?.exp) return true;
-    return Date.now() >= payload.exp * 1000;
-}
-
 export async function proxy(request: NextRequest) {
     const accessToken = request.cookies.get("accessToken")?.value;
     const refreshToken = request.cookies.get("refreshToken")?.value;
     const { pathname } = request.nextUrl;
 
+    const isLogout = pathname.startsWith("/logout");
     const isAuthRoute = AUTH_ROUTES.some((r) => pathname.startsWith(r));
     const isProtectedRoute = PROTECTED_ROUTES.some((r) =>
         pathname.startsWith(r)
     );
+
+    if (isLogout) {
+        if (refreshToken) {
+            try {
+                await fetch(`${process.env.API_URL!}/auth/v1/logout`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-api-key": process.env.API_KEY_AUTH!,
+                    },
+                    body: JSON.stringify({
+                        refreshToken: refreshToken,
+                    }),
+                    cache: "no-store",
+                });
+            } catch {
+                /* empty */
+            }
+        }
+
+        const redirect = NextResponse.redirect(new URL("/login", request.url), {
+            status: 308,
+        });
+
+        if (accessToken || refreshToken) {
+            redirect.cookies.delete("accessToken");
+            redirect.cookies.delete("refreshToken");
+        }
+
+        return redirect;
+    }
 
     let validAccessToken =
         accessToken && !isExpired(accessToken) ? accessToken : null;
@@ -91,7 +106,9 @@ export async function proxy(request: NextRequest) {
                     }
                 );
             }
-        } catch {}
+        } catch {
+            /* empty */
+        }
     }
 
     const authenticated = Boolean(validAccessToken);

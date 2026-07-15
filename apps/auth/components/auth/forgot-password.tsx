@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, useState } from "react";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -17,7 +17,7 @@ import { Input } from "@workspace/ui/components/input";
 import Link from "next/link";
 import { Header } from "@/components/auth/header";
 
-import { requestPasswordReset } from "@/lib/actions/request-password-reset";
+import { requestPasswordReset } from "@/lib/actions/reset-password";
 
 const formSchema = z.object({
     email: z.string().email("Enter a valid email").max(255),
@@ -36,7 +36,7 @@ export function ForgotPassword() {
     async function onSubmit(data: z.infer<typeof formSchema>) {
         const result = await requestPasswordReset(data);
 
-        if (result.error) {
+        if (!result.success) {
             toast.error(result.error);
             return;
         }
