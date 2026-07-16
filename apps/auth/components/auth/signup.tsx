@@ -108,9 +108,8 @@ export function Signup() {
         const res = await request(data);
         if (!res.success) {
             toast.error(res.error);
-
             emailForm.setError("email", { type: "server", message: res.error });
-
+            setSending(false);
             return;
         }
         setEmail(data.email);
@@ -146,6 +145,7 @@ export function Signup() {
         const res = await request({ email });
         if (!res.success) {
             toast.error(res.error);
+            setSending(false);
             return;
         }
 
@@ -255,7 +255,7 @@ export function Signup() {
                     <Button
                         type="submit"
                         disabled={sending}
-                        className="h-11 w-full font-medium"
+                        className="h-11 w-full font-medium hover:cursor-pointer"
                     >
                         {sending ? "Sending code…" : "Verify email"}
                     </Button>
@@ -314,7 +314,7 @@ export function Signup() {
                         type="button"
                         onClick={onVerifyCode}
                         disabled={code.length !== 6 || verifying}
-                        className="h-11 w-full font-medium"
+                        className="h-11 w-full font-medium hover:cursor-pointer"
                     >
                         {verifying ? "Verifying…" : "Verify code"}
                     </Button>
