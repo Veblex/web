@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { cookies } from "next/headers";
+import { fetchApi } from "../fetch-api";
 
 type LoginResult =
     | { success: true }
@@ -24,15 +25,14 @@ export async function login(data: {
         return { success: false, error: "Invalid identifier or password" };
     }
 
-    const res = await fetch(`${process.env.API_URL!}/auth/v1/login`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "x-api-key": process.env.API_KEY_AUTH!,
-        },
-        body: JSON.stringify(parsed.data),
-        cache: "no-store",
-    });
+    const res = await fetchApi<{
+        session: {
+            accessToken: string;
+            refreshToken: string;
+            accessTokenExpiresIn: number;
+            refreshTokenExpiresIn: number;
+        };
+    }>("POST", "/auth/v1/login", parsed.data);
 
     if (res.status === 401 || res.status === 400) {
         return {
@@ -48,22 +48,20 @@ export async function login(data: {
         };
     }
 
-    const payload = await res.json();
-
     const cookieStore = await cookies();
-    cookieStore.set("accessToken", payload.session.accessToken, {
+    cookieStore.set("accessToken", res.data.session.accessToken, {
         httpOnly: true,
         secure: true,
         sameSite: "lax",
         path: "/",
-        maxAge: payload.session.accessTokenExpiresIn,
+        maxAge: res.data.session.accessTokenExpiresIn,
     });
-    cookieStore.set("refreshToken", payload.session.refreshToken, {
+    cookieStore.set("refreshToken", res.data.session.refreshToken, {
         httpOnly: true,
         secure: true,
         sameSite: "lax",
         path: "/",
-        maxAge: payload.session.refreshTokenExpiresIn,
+        maxAge: res.data.session.refreshTokenExpiresIn,
     });
 
     return { success: true };

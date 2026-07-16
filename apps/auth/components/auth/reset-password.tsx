@@ -1,13 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { CSSProperties, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import {
-    verifyResetToken,
     ResetPassword as ResetPasswordAction,
 } from "@/lib/actions/reset-password";
 
@@ -68,7 +66,7 @@ export function ResetPassword({
             password: data.password,
         });
         if (!resetResult.success) {
-            toast.error(resetResult.error);
+            toast.error(resetResult.error.toString());
             return;
         }
 

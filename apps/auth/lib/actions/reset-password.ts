@@ -1,12 +1,13 @@
 "use server";
 
 import { z } from "zod";
+import { ApiError, fetchApi } from "../fetch-api";
 
 type Result =
     | { success: true }
     | {
           success: false;
-          error: string;
+          error: string|ApiError;
       };
 type TokenResult =
     | { success: true; token: string }
@@ -37,17 +38,9 @@ export async function requestPasswordReset(data: {
     const parsed = emailSchema.safeParse(data);
     if (!parsed.success) return { success: false, error: "Invalid email" };
 
-    const res = await fetch(`${process.env.API_URL!}/auth/v1/lost-password`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "x-api-key": process.env.API_KEY_AUTH!,
-        },
-        body: JSON.stringify({
-            step: "request",
-            email: data.email,
-        }),
-        cache: "no-store",
+    const res = await fetchApi("POST", "/auth/v1/lost-password", {
+        step: "request",
+        email: data.email,
     });
 
     if (!res.ok) {
@@ -68,18 +61,12 @@ export async function verifyResetToken(data: {
     if (!parsed.success)
         return { success: false, error: "Invalid email or code" };
 
-    const res = await fetch(`${process.env.API_URL!}/auth/v1/lost-password`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "x-api-key": process.env.API_KEY_AUTH!,
-        },
-        body: JSON.stringify({
-            step: "verify",
-            email: data.email,
-            code: data.code,
-        }),
-        cache: "no-store",
+    const res = await fetchApi<{
+        token: string;
+    }>("POST", "/auth/v1/lost-password", {
+        step: "verify",
+        email: data.email,
+        code: data.code,
     });
 
     if (!res.ok) {
@@ -89,9 +76,7 @@ export async function verifyResetToken(data: {
         };
     }
 
-    const payload = await res.json();
-
-    return { success: true, token: payload.token };
+    return { success: true, token: res.data.token };
 }
 
 export async function ResetPassword(data: {
@@ -103,25 +88,18 @@ export async function ResetPassword(data: {
     if (!parsed.success)
         return { success: false, error: "Invalid email, token or password" };
 
-    const res = await fetch(`${process.env.API_URL!}/auth/v1/lost-password`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "x-api-key": process.env.API_KEY_AUTH!,
-        },
-        body: JSON.stringify({
-            step: "reset",
-            email: data.email,
-            token: data.token,
-            password: data.password,
-        }),
-        cache: "no-store",
+    const res = await fetchApi("POST", "/auth/v1/lost-password", {
+        step: "reset",
+        email: data.email,
+        token: data.token,
+        password: data.password,
     });
 
     if (!res.ok) {
+        console.error(res);
         return {
             success: false,
-            error: "Something went wrong. Please try again.",
+            error: res.error,
         };
     }
 
