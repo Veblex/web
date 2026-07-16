@@ -3,7 +3,7 @@
     "extends": ["//"],
     "tasks": {
         "build": {
-            "env": ["API_URL", "API_KEY_AUTH", "API_KEY_UPTIME"]
+            "env": ["API_URL", "API_BASIC", "API_KEY_AUTH", "API_KEY_UPTIME"]
         }
     }
 }

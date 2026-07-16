@@ -37,7 +37,7 @@ export function ForgotPassword() {
         const result = await requestPasswordReset(data);
 
         if (!result.success) {
-            toast.error(result.error);
+            toast.error(result.error.toString());
             return;
         }
 

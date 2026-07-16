@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { cookies } from "next/headers";
+import { fetchApi } from "../fetch-api";
 
 type SignupResult =
     | { success: true; token?: string }
@@ -30,17 +31,9 @@ export async function request(data: { email: string }): Promise<SignupResult> {
         return { success: false, error: "Invalid email" };
     }
 
-    const res = await fetch(`${process.env.API_URL!}/auth/v1/signup`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "x-api-key": process.env.API_KEY_AUTH!,
-        },
-        body: JSON.stringify({
-            step: "request",
-            ...parsed.data,
-        }),
-        cache: "no-store",
+    const res = await fetchApi("POST", "/auth/v1/signup", {
+        step: "request",
+        ...parsed.data,
     });
 
     if (!res.ok) {
@@ -61,17 +54,11 @@ export async function verify(data: {
         return { success: false, error: "Invalid email or code" };
     }
 
-    const res = await fetch(`${process.env.API_URL!}/auth/v1/signup`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "x-api-key": process.env.API_KEY_AUTH!,
-        },
-        body: JSON.stringify({
-            step: "verify",
-            ...parsed.data,
-        }),
-        cache: "no-store",
+    const res = await fetchApi<{
+        token: string;
+    }>("POST", "/auth/v1/signup", {
+        step: "verify",
+        ...parsed.data,
     });
 
     if (!res.ok) {
@@ -81,9 +68,7 @@ export async function verify(data: {
         };
     }
 
-    const payload = await res.json();
-
-    return { success: true, token: payload.token };
+    return { success: true, token: res.data.token };
 }
 export async function complete(data: {
     email: string;
@@ -99,17 +84,16 @@ export async function complete(data: {
         };
     }
 
-    const res = await fetch(`${process.env.API_URL!}/auth/v1/signup`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "x-api-key": process.env.API_KEY_AUTH!,
-        },
-        body: JSON.stringify({
-            step: "complete",
-            ...parsed.data,
-        }),
-        cache: "no-store",
+    const res = await fetchApi<{
+        session: {
+            accessToken: string;
+            refreshToken: string;
+            accessTokenExpiresIn: number;
+            refreshTokenExpiresIn: number;
+        };
+    }>("POST", "/auth/v1/signup", {
+        step: "complete",
+        ...parsed.data,
     });
 
     if (!res.ok) {
@@ -119,22 +103,20 @@ export async function complete(data: {
         };
     }
 
-    const payload = await res.json();
-
     const cookieStore = await cookies();
-    cookieStore.set("accessToken", payload.session.accessToken, {
+    cookieStore.set("accessToken", res.data.session.accessToken, {
         httpOnly: true,
         secure: true,
         sameSite: "lax",
         path: "/",
-        maxAge: payload.session.accessTokenExpiresIn,
+        maxAge: res.data.session.accessTokenExpiresIn,
     });
-    cookieStore.set("refreshToken", payload.session.refreshToken, {
+    cookieStore.set("refreshToken", res.data.session.refreshToken, {
         httpOnly: true,
         secure: true,
         sameSite: "lax",
         path: "/",
-        maxAge: payload.session.refreshTokenExpiresIn,
+        maxAge: res.data.session.refreshTokenExpiresIn,
     });
 
     return { success: true };

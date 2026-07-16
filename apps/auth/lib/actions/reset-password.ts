@@ -96,7 +96,6 @@ export async function ResetPassword(data: {
     });
 
     if (!res.ok) {
-        console.error(res);
         return {
             success: false,
             error: res.error,
