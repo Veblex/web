@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isExpired } from "./lib/jwt";
+import { fetchApi } from "./lib/fetch-api";
 
 const AUTH_ROUTES = [
     "/login",
@@ -15,6 +16,18 @@ const PROTECTED_ROUTES = [
     "/change-password",
 ];
 
+function withRefreshedCookies(
+    target: NextResponse,
+    refreshed: NextResponse | null
+) {
+    if (refreshed) {
+        refreshed.cookies.getAll().forEach((cookie) => {
+            target.cookies.set(cookie);
+        });
+    }
+    return target;
+}
+
 export async function proxy(request: NextRequest) {
     const accessToken = request.cookies.get("accessToken")?.value;
     const refreshToken = request.cookies.get("refreshToken")?.value;
@@ -29,16 +42,8 @@ export async function proxy(request: NextRequest) {
     if (isLogout) {
         if (refreshToken) {
             try {
-                await fetch(`${process.env.API_URL!}/auth/v1/logout`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "x-api-key": process.env.API_KEY_AUTH!,
-                    },
-                    body: JSON.stringify({
-                        refreshToken: refreshToken,
-                    }),
-                    cache: "no-store",
+                await fetchApi("POST", "/auth/v1/logout", {
+                    refreshToken,
                 });
             } catch {
                 /* empty */
@@ -63,46 +68,41 @@ export async function proxy(request: NextRequest) {
 
     if (!validAccessToken && refreshToken) {
         try {
-            const refreshRes = await fetch(
-                `${process.env.API_URL!}/auth/v1/refresh`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "x-api-key": process.env.API_KEY_AUTH!,
-                    },
-                    body: JSON.stringify({
-                        refreshToken: refreshToken,
-                    }),
-                    cache: "no-store",
-                }
-            );
+            const refreshRes = await fetchApi<{
+                session: {
+                    accessToken: string;
+                    refreshToken: string;
+                    accessTokenExpiresIn: number;
+                    refreshTokenExpiresIn: number;
+                };
+            }>("POST", "/auth/v1/refresh", {
+                refreshToken,
+            });
 
             if (refreshRes.ok) {
-                const payload = await refreshRes.json();
-                validAccessToken = payload.session.accessToken;
+                validAccessToken = refreshRes.data.session.accessToken;
 
                 response = NextResponse.next();
                 response.cookies.set(
                     "accessToken",
-                    payload.session.accessToken,
+                    refreshRes.data.session.accessToken,
                     {
                         httpOnly: true,
                         secure: true,
                         sameSite: "lax",
                         path: "/",
-                        maxAge: payload.session.accessTokenExpiresIn,
+                        maxAge: refreshRes.data.session.accessTokenExpiresIn,
                     }
                 );
                 response.cookies.set(
                     "refreshToken",
-                    payload.session.refreshToken,
+                    refreshRes.data.session.refreshToken,
                     {
                         httpOnly: true,
                         secure: true,
                         sameSite: "lax",
                         path: "/",
-                        maxAge: payload.session.refreshTokenExpiresIn,
+                        maxAge: refreshRes.data.session.refreshTokenExpiresIn,
                     }
                 );
             }
@@ -114,7 +114,10 @@ export async function proxy(request: NextRequest) {
     const authenticated = Boolean(validAccessToken);
 
     if (authenticated && isAuthRoute) {
-        return NextResponse.redirect(new URL("/dashboard", request.url));
+        return withRefreshedCookies(
+            NextResponse.redirect(new URL("/dashboard", request.url)),
+            response
+        );
     }
 
     if (!authenticated && isProtectedRoute) {
@@ -129,9 +132,12 @@ export async function proxy(request: NextRequest) {
     }
 
     if (pathname === "/") {
-        return NextResponse.redirect(
-            new URL(authenticated ? "/dashboard" : "/login", request.url),
-            { status: authenticated ? 302 : 308 }
+        return withRefreshedCookies(
+            NextResponse.redirect(
+                new URL(authenticated ? "/dashboard" : "/login", request.url),
+                { status: authenticated ? 302 : 308 }
+            ),
+            response
         );
     }
 
