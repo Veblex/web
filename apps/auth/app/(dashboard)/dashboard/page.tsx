@@ -100,7 +100,7 @@ export default function Page() {
                 <p className="mb-6">
                     <Button
                         variant={"link"}
-                        className="p-0 text-base text-foreground underline underline-offset-2"
+                        className="p-0 h-auto leading-none text-foreground font-normal underline underline-offset-2"
                         onClick={() => startTransition(() => logout())}
                     >
                         {isPending ? "Signing out..." : "Sign out"}
