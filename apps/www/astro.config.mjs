@@ -7,6 +7,16 @@ import vercelStatic from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
+    security: {
+        csp: {
+            scriptDirective: {
+                hashes: ["sha256-WFd87qVABu8NknXkd3L0JTJGXUigiTiH//k7TP0b2+A="],
+            },
+            styleDirective: {
+                hashes: ["sha256-skqujXORqzxt1aE0NNXxujEanPTX6raoqSscTV/Ww/Y="],
+            },
+        },
+    },
     site: process.env.SITE_URL ?? "http://localhost:4321",
     vite: {
         plugins: [tailwindcss()],
