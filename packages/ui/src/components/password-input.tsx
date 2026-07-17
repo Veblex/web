@@ -3,10 +3,18 @@ import { Eye, EyeOff } from "lucide-react";
 import { Input } from "./input";
 import { cn } from "../lib/utils";
 
-function PasswordInput({ className, ...props }: React.ComponentProps<"input">) {
+type PasswordInputProps = React.ComponentProps<"input"> & {
+    parentClassName?: string;
+};
+
+function PasswordInput({
+    parentClassName,
+    className,
+    ...props
+}: PasswordInputProps) {
     const [visible, setVisible] = useState(false);
     return (
-        <div className="relative">
+        <div className={cn("relative", parentClassName)}>
             <Input
                 type={visible ? "text" : "password"}
                 className={cn("bg-background/60 pr-10", className)}

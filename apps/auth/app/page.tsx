@@ -1,23 +1,7 @@
-"use client";
-
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 
 export default function Page() {
-    const router = useRouter();
-    const loggedIn = false;
-
-    // useEffect(() => {
-    //     if (loggedIn) {
-    //         router.replace("/dashboard");
-    //     } else {
-    //         router.replace("/login");
-    //     }
-    // }, [loggedIn, router]);
-
     return (
         <div className="flex min-h-screen flex-col items-center justify-center gap-8">
             <div className="flex gap-4">

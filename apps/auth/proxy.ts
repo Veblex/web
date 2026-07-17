@@ -1,35 +1,147 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isExpired } from "./lib/jwt";
+import { fetchApi } from "./lib/fetch-api";
 
-const AUTH_ROUTES = ["/login", "/signup", "/forgot-password"];
-const PROTECTED_ROUTES = ["/dashboard", "/settings", "/profile"];
+const AUTH_ROUTES = [
+    "/login",
+    "/signup",
+    "/forgot-password",
+    "/reset-password",
+    "/logout",
+];
+const PROTECTED_ROUTES = [
+    "/dashboard",
+    "/settings",
+    "/profile",
+    "/change-password",
+];
 
-export function proxy(request: NextRequest) {
-    const token = request.cookies.get("auth-token")?.value;
+function withRefreshedCookies(
+    target: NextResponse,
+    refreshed: NextResponse | null
+) {
+    if (refreshed) {
+        refreshed.cookies.getAll().forEach((cookie) => {
+            target.cookies.set(cookie);
+        });
+    }
+    return target;
+}
+
+export async function proxy(request: NextRequest) {
+    const accessToken = request.cookies.get("accessToken")?.value;
+    const refreshToken = request.cookies.get("refreshToken")?.value;
     const { pathname } = request.nextUrl;
 
+    const isLogout = pathname.startsWith("/logout");
     const isAuthRoute = AUTH_ROUTES.some((r) => pathname.startsWith(r));
     const isProtectedRoute = PROTECTED_ROUTES.some((r) =>
         pathname.startsWith(r)
     );
 
-    if (token && isAuthRoute) {
-        return NextResponse.redirect(new URL("/dashboard", request.url));
+    if (isLogout) {
+        if (refreshToken) {
+            try {
+                await fetchApi("POST", "/auth/v1/logout", {
+                    refreshToken,
+                });
+            } catch {
+                /* empty */
+            }
+        }
+
+        const redirect = NextResponse.redirect(new URL("/login", request.url), {
+            status: 308,
+        });
+
+        if (accessToken || refreshToken) {
+            redirect.cookies.delete("accessToken");
+            redirect.cookies.delete("refreshToken");
+        }
+
+        return redirect;
     }
 
-    if (!token && isProtectedRoute) {
-        const loginUrl = new URL("/login", request.url);
-        loginUrl.searchParams.set("next", pathname);
-        return NextResponse.redirect(loginUrl);
+    let validAccessToken =
+        accessToken && !isExpired(accessToken) ? accessToken : null;
+    let response: NextResponse | null = null;
+
+    if (!validAccessToken && refreshToken) {
+        try {
+            const refreshRes = await fetchApi<{
+                session: {
+                    accessToken: string;
+                    refreshToken: string;
+                    accessTokenExpiresIn: number;
+                    refreshTokenExpiresIn: number;
+                };
+            }>("POST", "/auth/v1/refresh", {
+                refreshToken,
+            });
+
+            if (refreshRes.ok) {
+                validAccessToken = refreshRes.data.session.accessToken;
+
+                response = NextResponse.next();
+                response.cookies.set(
+                    "accessToken",
+                    refreshRes.data.session.accessToken,
+                    {
+                        httpOnly: true,
+                        secure: true,
+                        sameSite: "lax",
+                        path: "/",
+                        maxAge: refreshRes.data.session.accessTokenExpiresIn,
+                    }
+                );
+                response.cookies.set(
+                    "refreshToken",
+                    refreshRes.data.session.refreshToken,
+                    {
+                        httpOnly: true,
+                        secure: true,
+                        sameSite: "lax",
+                        path: "/",
+                        maxAge: refreshRes.data.session.refreshTokenExpiresIn,
+                    }
+                );
+            }
+        } catch {
+            /* empty */
+        }
     }
 
-    if (pathname === "/") {
-        return NextResponse.redirect(
-            new URL(token ? "/dashboard" : "/login", request.url),
-            { status: token ? 302 : 308 }
+    const authenticated = Boolean(validAccessToken);
+
+    if (authenticated && isAuthRoute) {
+        return withRefreshedCookies(
+            NextResponse.redirect(new URL("/dashboard", request.url)),
+            response
         );
     }
 
-    return NextResponse.next();
+    if (!authenticated && isProtectedRoute) {
+        const loginUrl = new URL("/login", request.url);
+        loginUrl.searchParams.set("next", pathname);
+        const redirect = NextResponse.redirect(loginUrl);
+        if (accessToken || refreshToken) {
+            redirect.cookies.delete("accessToken");
+            redirect.cookies.delete("refreshToken");
+        }
+        return redirect;
+    }
+
+    if (pathname === "/") {
+        return withRefreshedCookies(
+            NextResponse.redirect(
+                new URL(authenticated ? "/dashboard" : "/login", request.url),
+                { status: authenticated ? 302 : 308 }
+            ),
+            response
+        );
+    }
+
+    return response ?? NextResponse.next();
 }
 
 export const config = {

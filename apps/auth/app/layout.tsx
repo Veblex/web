@@ -1,8 +1,10 @@
+import "@workspace/ui/globals.css";
+
+import type { Metadata } from "next";
 import { Geist_Mono, Oxanium, IBM_Plex_Sans } from "next/font/google";
 
-import "@workspace/ui/globals.css";
-import { ThemeProvider } from "@workspace/ui/components/theme-provider";
 import { cn } from "@workspace/ui/lib/utils";
+import { ThemeProvider } from "@workspace/ui/components/theme-provider";
 import { TooltipProvider } from "@workspace/ui/components/tooltip";
 import { Toaster } from "@workspace/ui/components/sonner";
 
@@ -13,6 +15,27 @@ const fontMono = Geist_Mono({
     subsets: ["latin"],
     variable: "--font-mono",
 });
+
+export const metadata: Metadata = {
+    metadataBase: new URL("https://auth.veblex.com"),
+    title: {
+        template: "%s | Veblex",
+        default: "Veblex",
+    },
+    description: "Sign in to your Veblex account",
+    applicationName: "Veblex Auth",
+    referrer: "origin-when-cross-origin",
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+        },
+    },
+};
 
 export default function RootLayout({
     children,
