@@ -1,3 +1,5 @@
+import { headers } from "next/headers";
+
 export class ApiError extends Error {
     constructor(
         message: string,
@@ -26,6 +28,24 @@ function stripTrailingSlashes(value: string): string {
 
 function ensureLeadingSlash(value: string): string {
     return value.startsWith("/") ? value : `/${value}`;
+}
+
+async function getForwardedClientHeaders(): Promise<HeadersInit> {
+    try {
+        const incoming = await headers();
+
+        const forwardedFor =
+            incoming.get("x-forwarded-for") ?? incoming.get("x-real-ip");
+        const userAgent = incoming.get("user-agent");
+
+        const result: Record<string, string> = {};
+        if (forwardedFor) result["x-forwarded-for"] = forwardedFor;
+        if (userAgent) result["user-agent"] = userAgent;
+
+        return result;
+    } catch {
+        return {};
+    }
 }
 
 export const fetchApi = async <TResponse = unknown, TBody = unknown>(
@@ -61,12 +81,15 @@ export const fetchApi = async <TResponse = unknown, TBody = unknown>(
             };
         }
 
+        const forwardedClientHeaders = await getForwardedClientHeaders();
+
         const response = await fetch(`${apiUrl}${normalizedEndpoint}`, {
             method,
             headers: {
                 "Content-Type": "application/json",
                 "x-api-key": apiKey,
                 ...(apiBasic ? { Authorization: `Basic ${apiBasic}` } : {}),
+                ...forwardedClientHeaders,
                 ...headers,
             },
             body: JSON.stringify(body),
