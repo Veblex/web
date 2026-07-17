@@ -1,13 +1,12 @@
 "use client";
 
-import { CSSProperties, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
-import {
-    ResetPassword as ResetPasswordAction,
-} from "@/lib/actions/reset-password";
+import { ResetPassword as ResetPasswordAction } from "@/lib/actions/reset-password";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -72,19 +71,8 @@ export function ResetPassword({
 
         setSent(true);
 
-        toast("Password reset complete", {
-            description: (
-                <pre className="bg-code text-code-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4">
-                    <code>{JSON.stringify(data, null, 2)}</code>
-                </pre>
-            ),
+        toast.success("Password reset complete", {
             position: "bottom-right",
-            classNames: {
-                content: "flex flex-col gap-2",
-            },
-            style: {
-                "--border-radius": "calc(var(--radius)  + 4px)",
-            } as CSSProperties,
         });
     }
 
@@ -172,7 +160,7 @@ export function ResetPassword({
                     </form>
                 ) : (
                     <Button className="h-11 w-full font-medium" asChild>
-                        <Link href="/login">Back to sign in</Link>
+                        <Link href={`/login?email=${email}`}>Go to sign in</Link>
                     </Button>
                 )
             ) : (
@@ -181,15 +169,17 @@ export function ResetPassword({
                 </Button>
             )}
 
-            <p className="text-center text-muted-foreground">
-                Remember it?{" "}
-                <Link
-                    className="text-foreground underline-offset-2 hover:underline"
-                    href={"/login"}
-                >
-                    Sign in
-                </Link>
-            </p>
+            {validCode && !sent && (
+                <p className="text-center text-muted-foreground">
+                    Remember it?{" "}
+                    <Link
+                        className="text-foreground underline-offset-2 hover:underline"
+                        href={"/login"}
+                    >
+                        Sign in
+                    </Link>
+                </p>
+            )}
         </>
     );
 }

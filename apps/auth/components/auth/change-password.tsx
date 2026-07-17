@@ -87,7 +87,7 @@ export function ChangePassword() {
                             render={({ field, fieldState }) => (
                                 <Field data-invalid={fieldState.invalid}>
                                     <FieldLabel htmlFor="old">
-                                        Password
+                                        Current password
                                     </FieldLabel>
 
                                     <PasswordInput
@@ -112,7 +112,7 @@ export function ChangePassword() {
                             render={({ field, fieldState }) => (
                                 <Field data-invalid={fieldState.invalid}>
                                     <FieldLabel htmlFor="password">
-                                        Password
+                                        New password
                                     </FieldLabel>
 
                                     <PasswordInput
@@ -169,17 +169,17 @@ export function ChangePassword() {
                 </form>
             ) : (
                 <Button className="h-11 w-full font-medium" asChild>
-                    <Link href="/login">Back to sign in</Link>
+                    <Link href="/login">Go to sign in</Link>
                 </Button>
             )}
 
             <p className="text-center text-muted-foreground">
-                Remember it?{" "}
+                Second thoughts?{" "}
                 <Link
                     className="text-foreground underline-offset-2 hover:underline"
-                    href={"/login"}
+                    href={"/dashboard"}
                 >
-                    Sign in
+                    Go back
                 </Link>
             </p>
         </>

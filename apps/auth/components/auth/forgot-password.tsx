@@ -104,15 +104,17 @@ export function ForgotPassword() {
                 </Button>
             )}
 
-            <p className="text-center text-muted-foreground">
-                Remember it?{" "}
-                <Link
-                    className="text-foreground underline-offset-2 hover:underline"
-                    href={"/login"}
-                >
-                    Sign in
-                </Link>
-            </p>
+            {!sent && (
+                <p className="text-center text-muted-foreground">
+                    Remember it?{" "}
+                    <Link
+                        className="text-foreground underline-offset-2 hover:underline"
+                        href={"/login"}
+                    >
+                        Sign in
+                    </Link>
+                </p>
+            )}
         </>
     );
 }
