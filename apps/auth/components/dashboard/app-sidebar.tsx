@@ -1,3 +1,8 @@
+"use client";
+
+import { useTransition } from "react";
+import { logout } from "@/lib/actions/logout";
+
 import { Button } from "@workspace/ui/components/button";
 import {
     Sidebar,
@@ -17,6 +22,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+    const [isPending, startTransition] = useTransition();
+
     return (
         <Sidebar collapsible="offcanvas" {...props}>
             <SidebarHeader className="flex flex-row items-center justify-between py-4">
@@ -69,12 +76,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <Button
                     className="justify-between px-4 py-5"
                     variant={"secondary"}
-                    asChild
+                    disabled={isPending}
+                    onClick={() => startTransition(() => logout())}
                 >
-                    <Link href={"/logout"}>
-                        Sign out
-                        <LogOutIcon />
-                    </Link>
+                    {isPending ? "Signing out..." : "Sign out"}
+                    <LogOutIcon />
                 </Button>
             </SidebarFooter>
         </Sidebar>

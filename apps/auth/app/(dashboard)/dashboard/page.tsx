@@ -1,6 +1,13 @@
+"use client";
+
+import { logout } from "@/lib/actions/logout";
+import { Button } from "@workspace/ui/components/button";
 import Link from "next/link";
+import { useTransition } from "react";
 
 export default function Page() {
+    const [isPending, startTransition] = useTransition();
+
     return (
         <div className="max-w-160 md:py-8">
             <section>
@@ -63,7 +70,8 @@ export default function Page() {
                             target="_blank"
                         >
                             Moviestix
-                        </Link> via SSO endpoints.
+                        </Link>{" "}
+                        via SSO endpoints.
                     </li>
                 </ul>
             </section>
@@ -90,12 +98,13 @@ export default function Page() {
                     </Link>
                 </p>
                 <p className="mb-6">
-                    <Link
-                        className="underline underline-offset-2"
-                        href={"/logout"}
+                    <Button
+                        variant={"link"}
+                        className="p-0 h-auto leading-none text-foreground font-normal underline underline-offset-2"
+                        onClick={() => startTransition(() => logout())}
                     >
-                        Sign out
-                    </Link>
+                        {isPending ? "Signing out..." : "Sign out"}
+                    </Button>
                 </p>
 
                 <p>
