@@ -1,6 +1,7 @@
 ---
 import "@workspace/ui/styles/globals.css";
 import { ThemeProvider } from "@workspace/ui/components/theme-provider";
+import { THEME_INIT_SCRIPT } from "@workspace/ui/lib/theme-storage";
 
 import Header from "@components/header.astro";
 import Footer from "@components/footer.astro";
@@ -46,16 +47,7 @@ const ogUrl = `${origin}/${og ?? "og.png"}`;
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <script is:inline>
-            const theme = localStorage.getItem("theme") ?? "system";
-            const resolved =
-                theme === "system"
-                    ? window.matchMedia("(prefers-color-scheme: dark)").matches
-                        ? "dark"
-                        : "light"
-                    : theme;
-            document.documentElement.classList.add(resolved);
-        </script>
+        <script is:inline set:html={THEME_INIT_SCRIPT}></script>
 
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" />

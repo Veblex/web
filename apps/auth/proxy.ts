@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isExpired } from "./lib/jwt";
 import { fetchApi } from "./lib/fetch-api";
+import {
+    ONBOARDING_COMPLETE_COOKIE,
+    ONBOARDING_PENDING_COOKIE,
+} from "./lib/onboarding";
 
 const AUTH_ROUTES = [
     "/login",
@@ -13,6 +17,7 @@ const PROTECTED_ROUTES = [
     "/settings",
     "/profile",
     "/change-password",
+    "/onboarding",
 ];
 
 function withRefreshedCookies(
@@ -87,8 +92,25 @@ export async function proxy(request: NextRequest) {
     }
 
     const authenticated = Boolean(validAccessToken);
+    const onboardingPending =
+        request.cookies.get(ONBOARDING_PENDING_COOKIE)?.value === "1";
+    const onboardingComplete =
+        request.cookies.get(ONBOARDING_COMPLETE_COOKIE)?.value === "1";
+    const authedHome = onboardingPending ? "/onboarding" : "/dashboard";
 
     if (authenticated && isAuthRoute) {
+        return withRefreshedCookies(
+            NextResponse.redirect(new URL(authedHome, request.url)),
+            response
+        );
+    }
+
+    if (
+        authenticated &&
+        pathname.startsWith("/onboarding") &&
+        onboardingComplete &&
+        !onboardingPending
+    ) {
         return withRefreshedCookies(
             NextResponse.redirect(new URL("/dashboard", request.url)),
             response
@@ -109,7 +131,7 @@ export async function proxy(request: NextRequest) {
     if (pathname === "/") {
         return withRefreshedCookies(
             NextResponse.redirect(
-                new URL(authenticated ? "/dashboard" : "/login", request.url),
+                new URL(authenticated ? authedHome : "/login", request.url),
                 { status: authenticated ? 302 : 308 }
             ),
             response

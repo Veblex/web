@@ -35,10 +35,6 @@ export default function Page() {
                 <p className="mb-4 text-xl font-semibold">What to expect</p>
                 <ul className="list-disc pl-4">
                     <li>
-                        Onboarding step after creating account to complete your
-                        account.
-                    </li>
-                    <li>
                         Account managment (See and manage active sessions, edit
                         information, delete account, etc.)
                     </li>

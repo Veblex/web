@@ -10,7 +10,7 @@ export default defineConfig({
     security: {
         csp: {
             scriptDirective: {
-                hashes: ["sha256-WFd87qVABu8NknXkd3L0JTJGXUigiTiH//k7TP0b2+A="],
+                hashes: ["sha256-HhvVly3UHsTe6nCRESGrH8miX/za8Qy/gmp7tLHwBvQ="],
             },
             styleDirective: {
                 hashes: ["sha256-skqujXORqzxt1aE0NNXxujEanPTX6raoqSscTV/Ww/Y="],

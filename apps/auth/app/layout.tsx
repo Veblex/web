@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Geist_Mono, Oxanium, IBM_Plex_Sans } from "next/font/google";
 
 import { cn } from "@workspace/ui/lib/utils";
+import { THEME_INIT_SCRIPT } from "@workspace/ui/lib/theme-storage";
 import { ThemeProvider } from "@workspace/ui/components/theme-provider";
 import { TooltipProvider } from "@workspace/ui/components/tooltip";
 import { Toaster } from "@workspace/ui/components/sonner";
@@ -56,6 +57,9 @@ export default function RootLayout({
             )}
         >
             <head>
+                <script
+                    dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
+                />
                 <link rel="icon" href="/favicon.svg" sizes="any" />
             </head>
             <body>

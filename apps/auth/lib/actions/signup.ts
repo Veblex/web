@@ -3,6 +3,11 @@
 import { z } from "zod";
 import { cookies } from "next/headers";
 import { fetchApi } from "../fetch-api";
+import {
+    ONBOARDING_COMPLETE_COOKIE,
+    ONBOARDING_PENDING_COOKIE,
+    onboardingCookieOptions,
+} from "../onboarding";
 
 type SignupResult =
     | { success: true; token?: string }
@@ -118,6 +123,8 @@ export async function complete(data: {
         path: "/",
         maxAge: res.data.session.refreshTokenExpiresIn,
     });
+    cookieStore.delete(ONBOARDING_COMPLETE_COOKIE);
+    cookieStore.set(ONBOARDING_PENDING_COOKIE, "1", onboardingCookieOptions);
 
     return { success: true };
 }

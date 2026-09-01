@@ -176,7 +176,7 @@ export function Signup() {
             return;
         }
 
-        router.push("/dashboard");
+        router.push("/onboarding");
     };
 
     const meta = STEP_META[step];
