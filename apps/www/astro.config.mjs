@@ -30,13 +30,18 @@ export default defineConfig({
     fonts: [
         {
             provider: fontProviders.fontsource(),
-            name: "IBM Plex Sans",
+            name: "Manrope",
+            cssVariable: "--font-sans",
+        },
+        {
+            provider: fontProviders.fontsource(),
+            name: "Space Grotesk",
             cssVariable: "--font-heading",
         },
         {
             provider: fontProviders.fontsource(),
-            name: "Oxanium",
-            cssVariable: "--font-sans",
+            name: "JetBrains Mono",
+            cssVariable: "--font-mono",
         },
     ],
     integrations: [react()],

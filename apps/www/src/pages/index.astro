@@ -9,6 +9,9 @@ import { Services as ServicesComp } from "@components/services";
 import { stats } from "@/data/stats";
 
 import Layout from "@layouts/root.astro";
+import { cn } from "@workspace/ui/lib/utils";
+
+import { Orbit } from "@components/homepage/hero/orbit";
 ---
 
 <Layout
@@ -21,52 +24,61 @@ import Layout from "@layouts/root.astro";
             class="relative flex min-h-screen flex-col items-center justify-center"
         >
             <div
-                class="relative container grid grid-cols-1 px-4 py-12 sm:px-6 sm:py-18 lg:px-8 xl:grid-cols-2"
+                class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,var(--accent),transparent_60%)] opacity-60"
+            >
+            </div>
+            <div
+                class="relative container grid grid-cols-1 px-4 py-12 sm:px-6 sm:py-18 lg:px-8 xl:grid-cols-2 overflow-clip"
             >
                 <div class="flex flex-col justify-center">
                     <h1
-                        class="font-heading text-5xl font-bold tracking-tight text-balance text-foreground md:text-6xl"
+                        class="text-5xl font-bold tracking-tight text-balance sm:text-6xl lg:text-7xl"
                     >
-                        Your analog life,<br />
-                        <span class="text-gradient">finally connected.</span>
+                        One free account.<br />
+                        <span class="text-brand">Every</span> Veblex service.
                     </h1>
 
                     <p
-                        class="my-8 text-base leading-relaxed text-pretty text-muted-foreground sm:text-xl"
+                        class="my-8 text-base leading-relaxed text-pretty text-muted-foreground sm:text-lg"
                     >
-                        We got tired of juggling a million apps. So we built
-                        something better. One account. Four awesome services.
-                        Zero headaches. Track your gains, plan your days, binge
-                        your shows - all in one place.
+                        Sign up for Veblex Auth at no cost and get secure access
+                        to our growing family of apps — fitness, calendar,
+                        movies, and plenty more on the way.
                     </p>
 
-                    <div class="grid items-center gap-4 sm:flex">
+                    <div class="flex items-center gap-4 flex-wrap">
                         <a
                             href="https://auth.veblex.com/"
-                            class={buttonVariants({
-                                variant: "default",
-                                size: "lg",
-                            })}
+                            class={cn(
+                                buttonVariants({
+                                    variant: "default",
+                                    size: "lg",
+                                }),
+                                "bg-brand font-semibold text-background hover:bg-brand/90"
+                            )}
                         >
-                            Create Your Account
-                            <ArrowRight class="size-5" />
+                            Create your free account
+                            <ArrowRight class="size-4" />
                         </a>
                         <a
-                            class={buttonVariants({
-                                variant: "outline",
-                                size: "lg",
-                            })}
+                            class={cn(
+                                buttonVariants({
+                                    variant: "link",
+                                }),
+                                "font-semibold text-foreground"
+                            )}
                             href="/services"
                         >
-                            Explore services
-                            <ChevronRight class="size-5" />
+                            Explore all services
                         </a>
                     </div>
                 </div>
 
+                <Orbit className="hidden xl:flex" />
+
                 {/* Image/illustration here */}
                 <div
-                    class="relative hidden items-center justify-center xl:flex"
+                    class="relative hidden items-center justify-center xl:hidden"
                     aria-hidden="true"
                 >
                     {/* Middle */}
@@ -83,7 +95,7 @@ import Layout from "@layouts/root.astro";
                 </div>
 
                 {/* Decorative background shapes */}
-                <div class="absolute inset-0 -z-10" aria-hidden="true">
+                <div class="absolute inset-0 -z-10 hidden" aria-hidden="true">
                     {/* Bottom Left */}
                     <div
                         class="absolute top-1/2 -left-1/24 size-56 rounded-full bg-chart-1/3 blur-3xl md:size-80"

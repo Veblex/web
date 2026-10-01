@@ -1,5 +1,10 @@
 ---
-import { FullDark, FullLight, GitHub } from "@workspace/ui/brand-icons";
+import {
+    FullDark,
+    FullLight,
+    GitHub,
+    Discord,
+} from "@workspace/ui/brand-icons";
 import { UptimeWidget } from "@workspace/ui/components/uptime-widget";
 import { CTA, type CTAProps } from "@components/cta";
 import { ExternalLink } from "@lucide/astro";
@@ -21,19 +26,17 @@ const ctaProps: CTAProps = isServicesPage
 
 const year = new Date().getFullYear();
 
-// const contactMail = "contact@veblex.com";
-
 const socialLinks = [
     {
         name: "GitHub",
         href: "https://github.com/veblex/",
         icon: GitHub,
     },
-    // {
-    //     name: "Discord",
-    //     href: "https://discord.veblex.com/",
-    //     icon: Discord,
-    // },
+    {
+        name: "Discord",
+        href: "https://discord.veblex.com/",
+        icon: Discord,
+    },
 ];
 
 const footerLinks: {
@@ -96,11 +99,13 @@ const footerLinks: {
 
 {showCTA && <CTA {...ctaProps} />}
 
-<footer class="border-t border-border bg-background">
-    <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+<footer class="relative">
+    <div class="relative"></div>
+
+    <div class="bg-footer">
         <!-- Top bar -->
         <div
-            class="flex flex-col-reverse justify-between gap-6 gap-y-16 lg:flex-row"
+            class="container mx-auto flex flex-col lg:flex-row justify-between gap-6 gap-y-16 px-4 py-12 sm:px-6 lg:px-8 lg:py-16"
         >
             <!-- Brand -->
             <div>
@@ -141,12 +146,12 @@ const footerLinks: {
                 {
                     footerLinks.map((col) => (
                         <div class="flex basis-32 flex-col">
-                            <h3 class="font-sans text-sm font-semibold">
+                            <h2 class="font-sans text-sm font-semibold">
                                 {col.title}
-                            </h3>
+                            </h2>
                             <ul class="mt-4 space-y-3">
                                 {col.links.map((link) => (
-                                    <li>
+                                    <li class="flex">
                                         <a
                                             href={link.href}
                                             class="flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -167,13 +172,16 @@ const footerLinks: {
         </div>
 
         <!-- Bottom bar -->
-        <div
-            class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row"
-        >
-            <p class="text-sm text-muted-foreground">
-                &copy; {year} Veblex. All rights reserved.
-            </p>
-            <UptimeWidget client:only="react" />
+        <div class="border-t border-border">
+            <div
+                class="container mx-auto flex flex-row items-center justify-between gap-4 px-4 py-6 sm:px-6 lg:px-8"
+            >
+                <p class="text-sm text-muted-foreground">
+                    &copy; {year} Veblex. All rights reserved.
+                </p>
+
+                <UptimeWidget client:only="react" className="not-xs:hidden" />
+            </div>
         </div>
     </div>
 </footer>

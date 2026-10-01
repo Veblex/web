@@ -6,7 +6,7 @@ export const GET: APIRoute = async () => {
 
     if (!apiKey) {
         return new Response(JSON.stringify({ error: "Missing API key" }), {
-            status: 500,
+            status: 401,
         });
     }
 

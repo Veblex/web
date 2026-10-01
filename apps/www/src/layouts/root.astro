@@ -47,7 +47,7 @@ const ogUrl = `${origin}/${og ?? "og.png"}`;
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <script is:inline set:html={THEME_INIT_SCRIPT}></script>
+        <script is:inline set:html={THEME_INIT_SCRIPT} />
 
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" />
@@ -86,6 +86,7 @@ const ogUrl = `${origin}/${og ?? "og.png"}`;
 
         <Font cssVariable="--font-sans" preload />
         <Font cssVariable="--font-heading" preload />
+        <Font cssVariable="--font-mono" preload />
     </head>
     <body>
         <ThemeProvider client:load>

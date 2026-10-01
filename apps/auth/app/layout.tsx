@@ -1,7 +1,7 @@
 import "@workspace/ui/globals.css";
 
 import type { Metadata } from "next";
-import { Geist_Mono, Oxanium, IBM_Plex_Sans } from "next/font/google";
+import { Manrope, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 
 import { cn } from "@workspace/ui/lib/utils";
 import { THEME_INIT_SCRIPT } from "@workspace/ui/lib/theme-storage";
@@ -9,10 +9,13 @@ import { ThemeProvider } from "@workspace/ui/components/theme-provider";
 import { TooltipProvider } from "@workspace/ui/components/tooltip";
 import { Toaster } from "@workspace/ui/components/sonner";
 
-const oxanium = Oxanium({ subsets: ["latin"], variable: "--font-sans" });
-const ibm = IBM_Plex_Sans({ subsets: ["latin"], variable: "--font-heading" });
+const fontSans = Manrope({ subsets: ["latin"], variable: "--font-sans" });
+const fontHeading = Space_Grotesk({
+    subsets: ["latin"],
+    variable: "--font-heading",
+});
 
-const fontMono = Geist_Mono({
+const fontMono = JetBrains_Mono({
     subsets: ["latin"],
     variable: "--font-mono",
 });
@@ -51,9 +54,9 @@ export default function RootLayout({
                 "antialiased",
                 fontMono.variable,
                 "font-heading",
-                ibm.variable,
+                fontHeading.variable,
                 "font-sans",
-                oxanium.variable
+                fontSans.variable
             )}
         >
             <head>
