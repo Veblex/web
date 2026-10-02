@@ -23,19 +23,21 @@ import { Orbit } from "@components/homepage/hero/orbit";
         <section
             class="relative flex min-h-screen flex-col items-center justify-center"
         >
+            {/* Background color blobs */}
             <div
                 class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,var(--accent),transparent_60%)] opacity-60"
             >
             </div>
+
             <div
-                class="relative container grid grid-cols-1 px-4 py-12 sm:px-6 sm:py-18 lg:px-8 xl:grid-cols-2 overflow-clip"
+                class="relative container grid grid-cols-1 overflow-clip px-4 py-12 sm:px-6 sm:py-18 lg:px-8 xl:grid-cols-2"
             >
                 <div class="flex flex-col justify-center">
                     <h1
                         class="text-5xl font-bold tracking-tight text-balance sm:text-6xl lg:text-7xl"
                     >
                         One free account.<br />
-                        <span class="text-brand">Every</span> Veblex service.
+                        <span class="text-primary">Every</span> Veblex service.
                     </h1>
 
                     <p
@@ -46,7 +48,7 @@ import { Orbit } from "@components/homepage/hero/orbit";
                         movies, and plenty more on the way.
                     </p>
 
-                    <div class="flex items-center gap-4 flex-wrap">
+                    <div class="flex flex-wrap items-center gap-4">
                         <a
                             href="https://auth.veblex.com/"
                             class={cn(
@@ -54,7 +56,7 @@ import { Orbit } from "@components/homepage/hero/orbit";
                                     variant: "default",
                                     size: "lg",
                                 }),
-                                "bg-brand font-semibold text-background hover:bg-brand/90"
+                                "shadow-primary/20 shadow-lg font-semibold"
                             )}
                         >
                             Create your free account
@@ -75,38 +77,6 @@ import { Orbit } from "@components/homepage/hero/orbit";
                 </div>
 
                 <Orbit className="hidden xl:flex" />
-
-                {/* Image/illustration here */}
-                <div
-                    class="relative hidden items-center justify-center xl:hidden"
-                    aria-hidden="true"
-                >
-                    {/* Middle */}
-                    <div
-                        class="absolute top-1/2 right-1/2 size-56 rounded-2xl bg-chart-3/5 blur-3xl"
-                    >
-                    </div>
-                    <VBadgeDark
-                        className="pointer-events-none w-full max-w-sm animate-float select-none not-dark:hidden"
-                    />
-                    <VBadgeLight
-                        className="pointer-events-none w-full max-w-sm animate-float select-none dark:hidden"
-                    />
-                </div>
-
-                {/* Decorative background shapes */}
-                <div class="absolute inset-0 -z-10 hidden" aria-hidden="true">
-                    {/* Bottom Left */}
-                    <div
-                        class="absolute top-1/2 -left-1/24 size-56 rounded-full bg-chart-1/3 blur-3xl md:size-80"
-                    >
-                    </div>
-                    {/* Top Right */}
-                    <div
-                        class="absolute -top-1/3 right-1 size-64 rounded-full bg-chart-4/6 blur-3xl md:top-[unset] md:bottom-1/2 md:size-80 xl:size-96"
-                    >
-                    </div>
-                </div>
             </div>
         </section>
 

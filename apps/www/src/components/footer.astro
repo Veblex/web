@@ -8,6 +8,7 @@ import {
 import { UptimeWidget } from "@workspace/ui/components/uptime-widget";
 import { CTA, type CTAProps } from "@components/cta";
 import { ExternalLink } from "@lucide/astro";
+import { services } from "@/data/services";
 
 const { showCTA = false }: { showCTA?: boolean } = Astro.props;
 
@@ -39,30 +40,30 @@ const socialLinks = [
     },
 ];
 
+type Link = {
+    name: string;
+    href: string;
+    target?: "_blank" | "_self" | "_parent" | "_top";
+};
+
 const footerLinks: {
     title: string;
-    links: {
-        name: string;
-        href: string;
-        target?: "_blank" | "_self" | "_parent" | "_top";
-    }[];
+    links: Link[];
 }[] = [
     {
         title: "Services",
-        links: [
-            {
-                name: "Veblex Auth",
-                href: "https://auth.veblex.com/",
-            },
-            {
-                name: "Veblex Gym",
-                href: "https://gym.veblex.com/",
-            },
-            {
-                name: "Moviestix",
-                href: "https://www.moviestix.com/",
-            },
-        ],
+        links: services
+            .filter(
+                (service) =>
+                    service.status === "released" ||
+                    service.status === "in progress"
+            )
+            .map(
+                (service): Link => ({
+                    name: service.title,
+                    href: service.href,
+                })
+            ),
     },
     {
         title: "Company",
@@ -102,21 +103,20 @@ const footerLinks: {
 <footer class="relative">
     <div class="relative"></div>
 
-    <div class="bg-footer">
+    <div class="bg-footer text-footer-foreground">
         <!-- Top bar -->
         <div
-            class="container mx-auto flex flex-col lg:flex-row justify-between gap-6 gap-y-16 px-4 py-12 sm:px-6 lg:px-8 lg:py-16"
+            class="container mx-auto flex flex-col justify-between gap-6 gap-y-16 px-4 py-12 sm:px-6 lg:flex-row lg:px-8 lg:py-16"
         >
             <!-- Brand -->
             <div>
                 <a href="/" class="flex max-w-28">
-                    <span class="sr-only">Home</span>
-                    <FullLight className="not-dark:hidden" />
-                    <FullDark className="dark:hidden" />
+                    <span class="sr-only">Veblex homepage</span>
+                    <FullLight />
                 </a>
 
                 <p
-                    class="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground"
+                    class="mt-4 max-w-xs text-sm leading-relaxed text-footer-foreground/70"
                 >
                     Your unified digital ecosystem. One account, endless
                     possibilities.
@@ -127,7 +127,7 @@ const footerLinks: {
                         socialLinks.map((link) => (
                             <a
                                 href={link.href}
-                                class="rounded-full border border-primary/30 bg-card p-2 text-muted-foreground transition-colors duration-300 hover:border-foreground hover:bg-foreground hover:text-background"
+                                class="rounded-full border border-primary/10 bg-card dark p-2 text-muted-foreground transition-colors duration-300 hover:border-foreground hover:bg-foreground hover:text-background"
                                 aria-label={`Veblex on ${link.name}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -154,7 +154,7 @@ const footerLinks: {
                                     <li class="flex">
                                         <a
                                             href={link.href}
-                                            class="flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                                            class="flex items-center gap-1 text-sm text-footer-foreground/80 transition-colors hover:text-footer-foreground"
                                             target={link.target ?? "_self"}
                                         >
                                             {link.name}
@@ -172,15 +172,15 @@ const footerLinks: {
         </div>
 
         <!-- Bottom bar -->
-        <div class="border-t border-border">
+        <div class="border-t border-footer-foreground/10">
             <div
                 class="container mx-auto flex flex-row items-center justify-between gap-4 px-4 py-6 sm:px-6 lg:px-8"
             >
-                <p class="text-sm text-muted-foreground">
+                <p class="text-sm text-footer-foreground/60">
                     &copy; {year} Veblex. All rights reserved.
                 </p>
 
-                <UptimeWidget client:only="react" className="not-xs:hidden" />
+                <UptimeWidget client:only="react" className="not-xs:hidden text-footer-foreground/60" />
             </div>
         </div>
     </div>

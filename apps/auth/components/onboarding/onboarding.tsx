@@ -249,7 +249,7 @@ export function Onboarding() {
                             <div className="flex flex-col items-center gap-4">
                                 <div
                                     className={cn(
-                                        "flex size-24 items-center justify-center rounded-full font-heading text-3xl font-semibold text-primary shadow-xs ring-1 ring-foreground/10",
+                                        "flex size-24 items-center justify-center rounded-full font-heading text-3xl font-semibold text-brand shadow-xs ring-1 ring-foreground/10",
                                         AVATAR_HUE_CLASS[payload.avatarHue]
                                     )}
                                     aria-hidden="true"

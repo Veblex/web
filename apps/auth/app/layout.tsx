@@ -9,7 +9,10 @@ import { ThemeProvider } from "@workspace/ui/components/theme-provider";
 import { TooltipProvider } from "@workspace/ui/components/tooltip";
 import { Toaster } from "@workspace/ui/components/sonner";
 
-const fontSans = Manrope({ subsets: ["latin"], variable: "--font-sans" });
+const fontSans = Manrope({
+    subsets: ["latin"],
+    variable: "--font-sans",
+});
 const fontHeading = Space_Grotesk({
     subsets: ["latin"],
     variable: "--font-heading",

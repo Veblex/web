@@ -34,7 +34,7 @@ import {
 import { complete, request, verify } from "@/lib/actions/signup";
 
 const emailSchema = z.object({
-    email: z.string().email("Enter a valid email").max(255),
+    email: z.email("Enter a valid email").max(255),
 });
 type EmailData = z.infer<typeof emailSchema>;
 
@@ -44,7 +44,7 @@ const profileSchema = z
             .string()
             .min(3, "Username must be at least 3 characters")
             .max(32, "Username is too long")
-            .regex(/^[a-zA-Z0-9_-]+$/, "Letters, numbers, _ and - only"),
+            .regex(/^[a-zA-Z0-9_]+$/, "Letters, numbers and _ only"),
         password: z
             .string()
             .min(8, "At least 8 characters")

@@ -31,17 +31,17 @@ export default defineConfig({
         {
             provider: fontProviders.fontsource(),
             name: "Manrope",
-            cssVariable: "--font-sans",
+            cssVariable: "--font-manrope",
         },
         {
             provider: fontProviders.fontsource(),
             name: "Space Grotesk",
-            cssVariable: "--font-heading",
+            cssVariable: "--font-space-grotesk",
         },
         {
             provider: fontProviders.fontsource(),
             name: "JetBrains Mono",
-            cssVariable: "--font-mono",
+            cssVariable: "--font-jetbrains-mono",
         },
     ],
     integrations: [react()],

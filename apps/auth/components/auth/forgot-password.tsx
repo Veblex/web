@@ -20,7 +20,7 @@ import { Header } from "@/components/auth/header";
 import { requestPasswordReset } from "@/lib/actions/reset-password";
 
 const formSchema = z.object({
-    email: z.string().email("Enter a valid email").max(255),
+    email: z.email("Enter a valid email").max(255),
 });
 
 export function ForgotPassword() {

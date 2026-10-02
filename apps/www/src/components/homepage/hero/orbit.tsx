@@ -33,7 +33,7 @@ function Ring({
     return (
         <div className="absolute inset-0 flex items-center justify-center">
             <div
-                className="absolute rounded-full border border-dashed border-brand/30"
+                className="absolute rounded-full border border-dashed border-primary/30"
                 style={{ width: `${radius * 2}%`, height: `${radius * 2}%` }}
             />
             <div
@@ -57,7 +57,7 @@ function Ring({
                             >
                                 {Icon ? (
                                     <div className="flex flex-col items-center gap-1.5">
-                                        <div className="grid h-14 w-14 place-items-center rounded-2xl border border-border bg-card text-brand shadow-lg sm:h-16 sm:w-16">
+                                        <div className="grid h-14 w-14 place-items-center rounded-2xl border border-border bg-card text-primary shadow-lg sm:h-16 sm:w-16">
                                             <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
                                         </div>
                                         <span className="font-mono text-[10px] tracking-wider text-muted-foreground uppercase">
@@ -66,7 +66,7 @@ function Ring({
                                     </div>
                                 ) : (
                                     <div
-                                        className="h-3 w-3 rounded-sm bg-brand/25"
+                                        className="h-3 w-3 rounded-sm bg-primary/25"
                                         title="Coming soon"
                                     />
                                 )}
@@ -91,10 +91,10 @@ export function Orbit({ className }: { className?: string }) {
             <Ring items={outer} radius={47} dur="70s" reverse />
             <Ring items={inner} radius={33} dur="45s" />
             <div className="absolute inset-0 flex items-center justify-center">
-                <div className="absolute h-[34%] w-[34%] animate-lock-glow rounded-full bg-brand/40 blur-3xl" />
-                <div className="relative flex h-[30%] w-[30%] flex-col items-center justify-center gap-1 rounded-[28%] bg-primary text-primary-foreground shadow-2xl ring-1 ring-brand/40">
+                <div className="absolute h-[34%] w-[34%] animate-lock-glow rounded-full bg-primary/40 blur-3xl" />
+                <div className="relative flex h-[30%] w-[30%] flex-col items-center justify-center gap-1 rounded-[28%] bg-brand text-brand-foreground shadow-2xl ring-1 ring-primary/40">
                     <Lock
-                        className="h-1/3 w-1/3 text-brand"
+                        className="h-1/3 w-1/3 text-primary"
                         strokeWidth={2.2}
                     />
                     <span className="font-mono text-xs font-semibold tracking-[0.2em] uppercase">

@@ -1,18 +1,40 @@
 ---
-import { cn } from "@workspace/ui/lib/utils"
-import { Menu, X } from "@lucide/astro"
-import { FullDark, FullLight } from "@workspace/ui/brand-icons"
+import { cn } from "@workspace/ui/lib/utils";
+import { Menu, X } from "@lucide/astro";
+import { FullDark, FullLight } from "@workspace/ui/brand-icons";
+import { buttonVariants } from "@workspace/ui/components/button";
 
 // Mock auth state - in a real app this would come from Veblex Auth
-const mockUser = null // Set to { name: "John Doe", email: "john@example.com", avatar: "" } to test logged in state
-const user = mockUser
+const mockUser = null; // Set to { name: "John Doe", email: "john@example.com", avatar: "" } to test logged in state
+const user = mockUser;
 
-const pathname = new URL(Astro.request.url).pathname
+const pathname = new URL(Astro.request.url).pathname;
 
 const isCurrentPage = (page: string) => {
-    if (page === "home") return pathname === "/"
-    return pathname.startsWith(`/${page}`)
-}
+    if (page === "home") return pathname === "/";
+    return pathname.startsWith(`${page}`);
+};
+
+type NavLink = {
+    title: string;
+    href: string;
+    target?: "_blank" | "_self" | "_parent" | "_top";
+};
+
+const navigationLinks: NavLink[] = [
+    {
+        title: "Services",
+        href: "/services",
+    },
+    {
+        title: "About",
+        href: "/about",
+    },
+    {
+        title: "Help",
+        href: "/help",
+    },
+];
 ---
 
 <header
@@ -30,20 +52,25 @@ const isCurrentPage = (page: string) => {
         <div class="flex items-center gap-4">
             <!-- Desktop nav -->
             <nav class="hidden items-center gap-1 justify-self-center md:flex">
-                <a
-                    href="/services"
-                    class={cn(
-                        "flex px-4 py-2 text-muted-foreground hover:text-foreground",
-                        isCurrentPage("services") && "text-foreground"
-                    )}>Services</a
-                >
-                <a
-                    href="/about"
-                    class={cn(
-                        "flex px-4 py-2 text-muted-foreground hover:text-foreground",
-                        isCurrentPage("about") && "text-foreground"
-                    )}>About</a
-                >
+                {
+                    navigationLinks.map((item) => (
+                        <a
+                            href={item.href}
+                            target={item.target}
+                            rel={
+                                item.target === "_blank"
+                                    ? "noopener noreferrer"
+                                    : undefined
+                            }
+                            class={cn(
+                                "flex px-4 py-2 text-muted-foreground hover:text-foreground",
+                                isCurrentPage(item.href) && "text-foreground"
+                            )}
+                        >
+                            {item.title}
+                        </a>
+                    ))
+                }
             </nav>
 
             <!-- Auth buttons / profile -->
@@ -51,9 +78,13 @@ const isCurrentPage = (page: string) => {
                 <div class="hidden items-center gap-2 md:flex">
                     <a
                         href="https://auth.veblex.com/"
-                        class="flex items-center justify-between gap-2 rounded-lg bg-primary px-4 py-2 font-medium text-primary-foreground hover:bg-primary/90"
+                        class={cn(
+                            buttonVariants({
+                                variant: "default",
+                            })
+                        )}
                     >
-                        Create Account
+                        Create free account
                     </a>
                 </div>
             </div>
@@ -101,42 +132,42 @@ const isCurrentPage = (page: string) => {
 
 <script>
     const setupMenu = () => {
-        const button = document.getElementById("menu-button")
-        const menu = document.getElementById("mobile-menu")
-        const menuIcon = document.getElementById("menu-icon")
-        const closeIcon = document.getElementById("close-icon")
+        const button = document.getElementById("menu-button");
+        const menu = document.getElementById("mobile-menu");
+        const menuIcon = document.getElementById("menu-icon");
+        const closeIcon = document.getElementById("close-icon");
 
         if (button && menu) {
             const mobile_links = menu.querySelectorAll(
                 'a[href="#services"], a[href="#mission"], a[href="#contact"]'
-            )
+            );
 
             mobile_links.forEach((link) => {
                 link.addEventListener("click", () => {
-                    menu.classList.add("hidden")
+                    menu.classList.add("hidden");
 
                     if (!menuIcon || !closeIcon) {
-                        return
+                        return;
                     }
 
-                    menuIcon.classList.remove("hidden")
-                    closeIcon.classList.add("hidden")
-                })
-            })
+                    menuIcon.classList.remove("hidden");
+                    closeIcon.classList.add("hidden");
+                });
+            });
 
             button.addEventListener("click", () => {
-                menu.classList.toggle("hidden")
+                menu.classList.toggle("hidden");
 
                 if (!menuIcon || !closeIcon) {
-                    return
+                    return;
                 }
 
-                menuIcon.classList.toggle("hidden")
-                closeIcon.classList.toggle("hidden")
-            })
+                menuIcon.classList.toggle("hidden");
+                closeIcon.classList.toggle("hidden");
+            });
         }
-    }
+    };
 
-    setupMenu()
-    document.addEventListener("astro:after-swap", setupMenu)
+    setupMenu();
+    document.addEventListener("astro:after-swap", setupMenu);
 </script>
