@@ -1,6 +1,6 @@
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { buttonVariants } from "@workspace/ui/components/button";
-import { cn, mergeWithDefaults } from "@workspace/ui/lib/utils";
+import { mergeWithDefaults } from "@workspace/ui/lib/utils";
 
 type ButtonConfig = {
     variant?:
@@ -33,11 +33,11 @@ const defaultButtons: DefaultButtons = {
     primary: {
         variant: "default",
         size: "lg",
-        title: "Create Your Account",
+        title: "Create your free account",
         href: "https://auth.veblex.com/",
     },
     secondary: {
-        variant: "outline",
+        variant: "secondary",
         size: "lg",
         title: "Explore services",
         href: "/services",
@@ -53,18 +53,20 @@ function CTA({ className = "", buttons = defaultButtons }: CTAProps) {
     const buttonConfig = mergeWithDefaults(defaultButtons, buttons);
 
     return (
-        <section className={cn("border-t border-border", className)}>
+        <section className={className}>
             <div className="container mx-auto px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
-                <div className="flex max-w-lg flex-col space-y-6 md:space-y-8 lg:mx-auto lg:max-w-2xl lg:items-center lg:text-center">
-                    <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                <div className="glow-box relative flex flex-col overflow-hidden rounded-2xl bg-brand p-6 sm:p-8 md:p-10 lg:items-center lg:p-16 lg:text-center">
+                    <div className="pointer-events-none absolute -top-20 -right-20 h-72 w-72 rounded-full bg-primary/30 blur-3xl"></div>
+
+                    <h2 className="mb-2 text-xl font-bold tracking-tight sm:text-2xl md:text-3xl lg:text-4xl text-brand-foreground">
                         Ready to join the ecosystem?
                     </h2>
-                    <p className="text-lg leading-relaxed text-muted-foreground">
+                    <p className="max-w-124 leading-relaxed text-brand-foreground/70 md:text-lg">
                         Create your free Veblex account and get access to all
                         our services with a single sign-on.
                     </p>
 
-                    <div className="grid items-center gap-4 sm:flex">
+                    <div className="z-10 mt-6 grid items-center gap-4 sm:mt-8 sm:flex">
                         <a
                             className={buttonVariants({
                                 variant: buttonConfig.primary?.variant,

@@ -1,10 +1,5 @@
 ---
-import {
-    FullDark,
-    FullLight,
-    GitHub,
-    Discord,
-} from "@workspace/ui/brand-icons";
+import { FullLight, GitHub } from "@workspace/ui/brand-icons";
 import { UptimeWidget } from "@workspace/ui/components/uptime-widget";
 import { CTA, type CTAProps } from "@components/cta";
 import { ExternalLink } from "@lucide/astro";
@@ -26,18 +21,24 @@ const ctaProps: CTAProps = isServicesPage
     : {};
 
 const year = new Date().getFullYear();
+const FOOTER_LINKS_VISIBLE = 5;
 
 const socialLinks = [
     {
         name: "GitHub",
-        href: "https://github.com/veblex/",
+        href: "https://vblx.cc/github",
         icon: GitHub,
     },
-    {
-        name: "Discord",
-        href: "https://discord.veblex.com/",
-        icon: Discord,
-    },
+    // {
+    //     name: "Discord",
+    //     href: "https://vblx.cc/discord",
+    //     icon: Discord,
+    // },
+    // {
+    //     name: "YouTube",
+    //     href: "https://vblx.cc/youtube",
+    //     icon: YouTube,
+    // },
 ];
 
 type Link = {
@@ -96,12 +97,20 @@ const footerLinks: {
         ],
     },
 ];
+
+const pixelsSvg = await fetch(
+    "https://assets.veblex.com/illustrations/footer-pixels/v2/pixels.min.svg"
+).then((r) => r.text());
 ---
 
 {showCTA && <CTA {...ctaProps} />}
 
 <footer class="relative">
-    <div class="relative"></div>
+    <div
+        class="relative -mb-px leading-none [&_svg]:block [&_svg]:w-full"
+        set:html={pixelsSvg}
+        aria-hidden="true"
+    />
 
     <div class="bg-footer text-footer-foreground">
         <!-- Top bar -->
@@ -127,7 +136,7 @@ const footerLinks: {
                         socialLinks.map((link) => (
                             <a
                                 href={link.href}
-                                class="rounded-full border border-primary/10 bg-card dark p-2 text-muted-foreground transition-colors duration-300 hover:border-foreground hover:bg-foreground hover:text-background"
+                                class="dark rounded-full border border-primary/10 bg-card p-2 text-muted-foreground transition-colors duration-300 hover:border-foreground hover:bg-foreground hover:text-background"
                                 aria-label={`Veblex on ${link.name}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -150,8 +159,13 @@ const footerLinks: {
                                 {col.title}
                             </h2>
                             <ul class="mt-4 space-y-3">
-                                {col.links.map((link) => (
-                                    <li class="flex">
+                                {col.links.map((link, index) => (
+                                    <li
+                                        class="flex"
+                                        {...(index >= FOOTER_LINKS_VISIBLE
+                                            ? { "data-footer-link-extra": "" }
+                                            : {})}
+                                    >
                                         <a
                                             href={link.href}
                                             class="flex items-center gap-1 text-sm text-footer-foreground/80 transition-colors hover:text-footer-foreground"
@@ -164,6 +178,21 @@ const footerLinks: {
                                         </a>
                                     </li>
                                 ))}
+                                {col.links.length > FOOTER_LINKS_VISIBLE && (
+                                    <li
+                                        class="hidden"
+                                        data-footer-link-toggle-wrap
+                                    >
+                                        <button
+                                            type="button"
+                                            class="cursor-pointer text-sm text-footer-foreground/80 underline transition-colors hover:text-footer-foreground"
+                                            data-footer-link-toggle
+                                            aria-expanded="false"
+                                        >
+                                            Show more
+                                        </button>
+                                    </li>
+                                )}
                             </ul>
                         </div>
                     ))
@@ -180,8 +209,74 @@ const footerLinks: {
                     &copy; {year} Veblex. All rights reserved.
                 </p>
 
-                <UptimeWidget client:only="react" className="not-xs:hidden text-footer-foreground/60" />
+                <UptimeWidget
+                    client:only="react"
+                    className="text-footer-foreground/60 not-xs:hidden"
+                />
             </div>
         </div>
     </div>
 </footer>
+
+<script>
+    const initFooterLinkLists = () => {
+        const footer = document.querySelector("footer");
+        if (!footer) {
+            return;
+        }
+
+        footer.querySelectorAll("ul").forEach((list) => {
+            const toggle = list.querySelector("[data-footer-link-toggle]");
+            const toggleWrap = list.querySelector(
+                "[data-footer-link-toggle-wrap]"
+            );
+            const extras = list.querySelectorAll("[data-footer-link-extra]");
+
+            if (!toggle || !toggleWrap || extras.length === 0) {
+                return;
+            }
+
+            toggleWrap.classList.remove("hidden");
+            extras.forEach((item) => item.classList.add("hidden"));
+            toggle.setAttribute("aria-expanded", "false");
+            toggle.textContent = "Show more";
+        });
+    };
+
+    const onFooterLinkToggleClick = (event: Event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) {
+            return;
+        }
+
+        const toggle = target.closest("[data-footer-link-toggle]");
+        if (!toggle) {
+            return;
+        }
+
+        const footer = toggle.closest("footer");
+        if (!footer) {
+            return;
+        }
+
+        const list = toggle.closest("ul");
+        if (!list) {
+            return;
+        }
+
+        const extras = list.querySelectorAll("[data-footer-link-extra]");
+        const expanded = toggle.getAttribute("aria-expanded") === "true";
+
+        extras.forEach((item) => item.classList.toggle("hidden", expanded));
+        toggle.setAttribute("aria-expanded", expanded ? "false" : "true");
+        toggle.textContent = expanded ? "Show more" : "Hide";
+    };
+
+    const setupFooterLinkToggles = () => {
+        document.addEventListener("click", onFooterLinkToggleClick);
+        initFooterLinkLists();
+    };
+
+    setupFooterLinkToggles();
+    document.addEventListener("astro:after-swap", initFooterLinkLists);
+</script>

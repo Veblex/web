@@ -18,3 +18,4 @@ export * from "./v-light"
 
 export * from "./discord"
 export * from "./github"
+export * from "./youtube"

@@ -1,12 +1,19 @@
 ---
-import { ArrowRight, ChevronRight } from "@lucide/astro";
+import {
+    ArrowRight,
+    Calendar,
+    ChevronRight,
+    CodeXml,
+    Dumbbell,
+    EyeOff,
+    Film,
+    KeyRound,
+    ShieldCheck,
+} from "@lucide/astro";
 
-import { VBadgeDark, VBadgeLight } from "@workspace/ui/brand-icons";
 import { buttonVariants } from "@workspace/ui/components/button";
-import { Card } from "@workspace/ui/components/card";
 
 import { Services as ServicesComp } from "@components/services";
-import { stats } from "@/data/stats";
 
 import Layout from "@layouts/root.astro";
 import { cn } from "@workspace/ui/lib/utils";
@@ -17,11 +24,12 @@ import { Orbit } from "@components/homepage/hero/orbit";
 <Layout
     title="Veblex - Your everyday tools, all in one place"
     description="Veblex is a free collection of everyday tools — track your workouts, manage your watchlist, and more. One account, everything you need."
+    footer={{ showCTA: true }}
 >
     <main class="flex-1">
         {/* Hero */}
         <section
-            class="relative flex min-h-screen flex-col items-center justify-center"
+            class="relative flex flex-col items-center justify-center md:py-12"
         >
             {/* Background color blobs */}
             <div
@@ -30,7 +38,7 @@ import { Orbit } from "@components/homepage/hero/orbit";
             </div>
 
             <div
-                class="relative container grid grid-cols-1 overflow-clip px-4 py-12 sm:px-6 sm:py-18 lg:px-8 xl:grid-cols-2"
+                class="relative container grid grid-cols-1 overflow-clip px-4 py-12 sm:px-6 sm:py-18 lg:grid-cols-2 lg:px-8"
             >
                 <div class="flex flex-col justify-center">
                     <h1
@@ -56,7 +64,7 @@ import { Orbit } from "@components/homepage/hero/orbit";
                                     variant: "default",
                                     size: "lg",
                                 }),
-                                "shadow-primary/20 shadow-lg font-semibold"
+                                "font-semibold shadow-lg shadow-primary/20"
                             )}
                         >
                             Create your free account
@@ -76,30 +84,213 @@ import { Orbit } from "@components/homepage/hero/orbit";
                     </div>
                 </div>
 
-                <Orbit className="hidden xl:flex" />
+                <Orbit className="hidden lg:flex" />
+            </div>
+        </section>
+
+        <section class="border-y bg-card">
+            <div
+                class="container mx-auto grid grid-cols-2 justify-center lg:grid-cols-4"
+            >
+                <div
+                    class="flex flex-col items-center justify-center p-6 text-center lg:border-r"
+                >
+                    <p class="mb-2 text-4xl font-bold text-primary">Free</p>
+                    <p class="text-muted-foreground">sign-in, forever</p>
+                </div>
+                <div
+                    class="flex flex-col items-center justify-center p-6 text-center lg:border-r"
+                >
+                    <p class="mb-2 text-4xl font-bold text-primary">1</p>
+                    <p class="text-muted-foreground">account for everything</p>
+                </div>
+                <div
+                    class="flex flex-col items-center justify-center p-6 text-center lg:border-r"
+                >
+                    <p class="mb-2 text-4xl font-bold text-primary">3+</p>
+                    <p class="text-muted-foreground">services today</p>
+                </div>
+                <div
+                    class="flex flex-col items-center justify-center p-6 text-center"
+                >
+                    <p class="mb-2 text-4xl font-bold text-primary">∞</p>
+                    <p class="text-muted-foreground">more on the way</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div
+                class="container mx-auto grid items-center gap-16 px-4 py-24 sm:px-6 sm:py-32 lg:grid-cols-2 lg:px-8"
+            >
+                <div
+                    class="hidden items-center justify-center lg:flex"
+                    aria-hidden="true"
+                >
+                    <div
+                        class="glow-box flex w-full max-w-96 flex-col gap-6 rounded-xl bg-card p-8"
+                    >
+                        <p class="flex items-center gap-2">
+                            <KeyRound class="size-5 text-primary" /> Sign in with
+                            Veblex
+                        </p>
+
+                        <div class="flex flex-col gap-3">
+                            <div
+                                class="flex min-h-11 items-center rounded-lg border bg-background/60 px-4 py-2"
+                            >
+                                <p
+                                    class="pointer-events-none text-sm text-muted-foreground"
+                                >
+                                    you@example.com
+                                </p>
+                            </div>
+                            <div
+                                class="flex min-h-11 items-center rounded-lg border bg-background/60 px-4 py-2"
+                            >
+                                <p
+                                    class="pointer-events-none text-sm text-muted-foreground"
+                                >
+                                    ••••••••••
+                                </p>
+                            </div>
+
+                            <div
+                                class="flex min-h-11 items-center justify-center rounded-lg border bg-primary px-4 py-2"
+                            >
+                                <p
+                                    class="pointer-events-none text-sm text-primary-foreground"
+                                >
+                                    Continue
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col items-center gap-3">
+                            <div class="flex gap-2">
+                                <div
+                                    class="w-fit rounded-lg bg-brand/30 p-2.5"
+                                    aria-hidden="true"
+                                >
+                                    <Dumbbell class="size-4 text-primary" />
+                                </div>
+                                <div
+                                    class="w-fit rounded-lg bg-brand/30 p-2.5"
+                                    aria-hidden="true"
+                                >
+                                    <Calendar class="size-4 text-primary" />
+                                </div>
+                                <div
+                                    class="w-fit rounded-lg bg-brand/30 p-2.5"
+                                    aria-hidden="true"
+                                >
+                                    <Film class="size-4 text-primary" />
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-muted-foreground">
+                                One login for all of these
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-8">
+                    <div class="flex flex-col gap-4">
+                        <h2 class="text-3xl font-bold md:text-5xl">
+                            Free, secure sign-in for everything Veblex
+                        </h2>
+                        <p class="text-muted-foreground">
+                            Veblex Auth is the key to our whole ecosystem.
+                            Create it once, and every Veblex app just works. No
+                            new accounts, no extra passwords.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col gap-6">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="rounded-xl bg-brand/60 p-3"
+                                aria-hidden="true"
+                            >
+                                <KeyRound class="size-5 text-primary" />
+                            </div>
+
+                            <div>
+                                <p>One password</p>
+                                <p class="text-sm text-muted-foreground">
+                                    Sign in once and move between services
+                                    freely.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="rounded-xl bg-brand/60 p-3"
+                                aria-hidden="true"
+                            >
+                                <ShieldCheck class="size-5 text-primary" />
+                            </div>
+
+                            <div>
+                                <p>Built for security</p>
+                                <p class="text-sm text-muted-foreground">
+                                    Modern protection for your account, by
+                                    default.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="rounded-xl bg-brand/60 p-3"
+                                aria-hidden="true"
+                            >
+                                <EyeOff class="size-5 text-primary" />
+                            </div>
+
+                            <div>
+                                <p>Private by design</p>
+                                <p class="text-sm text-muted-foreground">
+                                    Your data isn't for sale. Ever.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a
+                        class="flex items-center gap-3 rounded-xl border border-dashed p-4"
+                        href="/docs"
+                    >
+                        <CodeXml class="size-4 text-primary" />
+                        <p class="text-sm">
+                            <strong>For developers:</strong> add “Sign in with Veblex”
+                            to your own app with our SSO integrations.
+                        </p>
+                    </a>
+                </div>
             </div>
         </section>
 
         {/* Services */}
-        <section>
+        <section class="bg-card">
             <div class="container mx-auto px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
-                <h2 class="font-mono text-sm text-muted-foreground uppercase">
-                    Services
-                </h2>
-                <h3 class="my-4 text-3xl font-bold tracking-tight sm:text-4xl">
-                    Built to work together
-                </h3>
-                <p class="text-lg leading-relaxed text-muted-foreground">
-                    A growing ecosystem of interconnected applications designed
-                    to enhance every aspect of your digital life.
-                </p>
+                <div class="max-w-200">
+                    <h2
+                        class="my-4 text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl"
+                    >
+                        We do a lot. And we're just getting started.
+                    </h2>
+                    <p class="text-lg leading-relaxed text-muted-foreground">
+                        A growing ecosystem of interconnected applications
+                        designed to enhance every aspect of your digital life.
+                    </p>
+                </div>
 
                 <div class="mt-12 grid gap-6 lg:grid-cols-3">
                     <ServicesComp
                         showFeatures={false}
                         onlyCore={true}
                         limit={3}
-                        titleTag="h4"
+                        titleTag="h3"
                     />
                 </div>
 
@@ -118,75 +309,15 @@ import { Orbit } from "@components/homepage/hero/orbit";
             </div>
         </section>
 
-        {/* About */}
-        <section class="border-t border-border">
-            <div class="container mx-auto px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
-                <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
-                    <div>
-                        <h2
-                            class="font-mono text-sm text-muted-foreground uppercase"
-                        >
-                            About Veblex
-                        </h2>
-
-                        <h3
-                            class="my-4 text-3xl font-bold tracking-tight sm:text-4xl"
-                        >
-                            An ecosystem, not just a product
-                        </h3>
-
-                        <p
-                            class="text-lg leading-relaxed text-muted-foreground"
-                        >
-                            Veblex brings together a growing suite of services
-                            under a single identity. Every product shares the
-                            same design language, auth layer, and developer
-                            experience — so you can build faster with fewer
-                            tools.
-                        </p>
-
-                        <div class="mt-4 grid items-center gap-4 sm:flex">
-                            <a
-                                class={buttonVariants({
-                                    variant: "default",
-                                    size: "lg",
-                                })}
-                                href="https://auth.veblex.com/"
-                            >
-                                Create Your Account
-                                <ArrowRight class="size-4" />
-                            </a>
-                            <a
-                                class={buttonVariants({
-                                    variant: "outline",
-                                    size: "lg",
-                                })}
-                                href="/about"
-                            >
-                                Learn more
-                                <ChevronRight class="size-4" />
-                            </a>
-                        </div>
-                    </div>
-
-                    <div
-                        class="grid gap-6 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2"
-                    >
-                        {
-                            stats.map((stat) => (
-                                <Card size="lg">
-                                    <p class="flex flex-col gap-2 text-center text-sm leading-relaxed text-muted-foreground">
-                                        <span class="text-3xl font-bold text-foreground">
-                                            {stat.value}
-                                        </span>
-                                        <br />
-                                        {stat.title}
-                                    </p>
-                                </Card>
-                            ))
-                        }
-                    </div>
-                </div>
+        <section>
+            <div
+                class="container mx-auto flex flex-col items-center px-4 py-24 sm:px-6 sm:py-32 lg:px-8"
+            >
+                <h2
+                    class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl"
+                >
+                    Up and running in a minute
+                </h2>
             </div>
         </section>
     </main>
