@@ -65,10 +65,7 @@ function Ring({
                                         </span>
                                     </div>
                                 ) : (
-                                    <div
-                                        className="h-3 w-3 rounded-sm bg-primary/25"
-                                        title="Coming soon"
-                                    />
+                                    <div className="h-3 w-3 rounded-sm bg-primary/25" />
                                 )}
                             </div>
                         </div>
@@ -83,7 +80,7 @@ export function Orbit({ className }: { className?: string }) {
     return (
         <div
             className={cn(
-                "relative mx-auto aspect-square w-full max-w-130",
+                "relative ml-auto aspect-square w-full max-w-130",
                 className
             )}
             aria-hidden="true"
@@ -92,11 +89,8 @@ export function Orbit({ className }: { className?: string }) {
             <Ring items={inner} radius={33} dur="45s" />
             <div className="absolute inset-0 flex items-center justify-center">
                 <div className="absolute h-[34%] w-[34%] animate-lock-glow rounded-full bg-primary/40 blur-3xl" />
-                <div className="relative flex h-[30%] w-[30%] flex-col items-center justify-center gap-1 rounded-[28%] bg-brand text-brand-foreground shadow-2xl ring-1 ring-primary/40">
-                    <Lock
-                        className="h-1/3 w-1/3 text-primary"
-                        strokeWidth={2.2}
-                    />
+                <div className="relative flex h-[25%] w-[25%] flex-col items-center justify-center gap-2 rounded-[28%] border border-border bg-card text-primary shadow-2xl">
+                    <Lock className="h-1/3 w-1/3" />
                     <span className="font-mono text-xs font-semibold tracking-[0.2em] uppercase">
                         Auth
                     </span>

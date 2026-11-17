@@ -15,7 +15,7 @@ function Card({
             data-slot="card"
             data-size={size}
             className={cn(
-                "group/card flex flex-col gap-3 overflow-hidden rounded-xl bg-card p-6 text-sm text-card-foreground shadow-xs ring-1 ring-foreground/5 has-[>img:first-child]:pt-0 data-[size=lg]:p-10 data-[size=sm]:gap-4 data-[size=sm]:py-4 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+                "group/card flex flex-col gap-3 overflow-hidden rounded-xl bg-card p-6 text-sm text-card-foreground shadow-xs border border-foreground/5 has-[>img:first-child]:pt-0 data-[size=lg]:p-10 data-[size=sm]:gap-4 data-[size=sm]:py-4 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
                 doHover ? hoverAnimationClass : "",
                 className
             )}

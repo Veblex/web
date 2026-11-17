@@ -1,7 +1,7 @@
 import "@workspace/ui/globals.css";
 
 import type { Metadata } from "next";
-import { Manrope, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Manrope, Noto_Sans_Symbols_2, JetBrains_Mono } from "next/font/google";
 
 import { cn } from "@workspace/ui/lib/utils";
 import { THEME_INIT_SCRIPT } from "@workspace/ui/lib/theme-storage";
@@ -13,8 +13,9 @@ const fontSans = Manrope({
     subsets: ["latin"],
     variable: "--font-sans",
 });
-const fontHeading = Space_Grotesk({
+const fontHeading = Noto_Sans_Symbols_2({
     subsets: ["latin"],
+    weight: "400",
     variable: "--font-heading",
 });
 

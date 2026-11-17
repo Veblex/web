@@ -8,10 +8,6 @@
 @source "../**/*.{ts,tsx}";
 
 @theme inline {
-    /* --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
-    --font-heading: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-    --font-mono: "JetBrains Mono", ui-monospace, monospace; */
-
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -85,7 +81,7 @@
     --primary: oklch(56% 0.11 192);
     --primary-foreground: oklch(99% 0.005 200);
 
-    --secondary: oklch(95% 0.01 229);
+    --secondary: oklch(94.011% 0.01825 205.625);
     --secondary-foreground: oklch(23.201% 0.02 225);
 
     --muted: oklch(95.5% 0.008 229);
@@ -98,7 +94,7 @@
     --destructive-foreground: oklch(98% 0 0);
 
     --border: oklch(90% 0.012 225);
-    --input: oklch(86.043% 0.03103 212.221);
+    --input: oklch(93.356% 0.00977 205.484);
     --ring: oklch(55% 0.1 195);
 
     --brand: oklch(25% 0.05 221.44);
@@ -133,10 +129,10 @@
     --popover: oklch(16% 0.025 253);
     --popover-foreground: oklch(98.6% 0.002 67.8);
 
-    --primary: oklch(70.269% 0.11347 181.666);
+    --primary: oklch(70.992% 0.11653 199.203);
     --primary-foreground: oklch(16% 0.03 230);
 
-    --secondary: oklch(18% 0.03 250.77);
+    --secondary: oklch(24.62% 0.04558 233.854);
     --secondary-foreground: oklch(98.5% 0 0);
 
     --muted: oklch(17.559% 0.02865 255.663);
@@ -178,8 +174,8 @@
     --font-sans:
         var(--font-manrope), "Manrope", ui-sans-serif, system-ui, sans-serif;
     --font-heading:
-        var(--font-space-grotesk), "Space Grotesk", ui-sans-serif, system-ui,
-        sans-serif;
+        var(--font-noto-sans-symbols-2), "Noto Sans Symbols 2", ui-sans-serif,
+        system-ui, sans-serif;
     --font-mono:
         var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, monospace;
 

@@ -1,4 +1,3 @@
-import { ArrowRight, ChevronRight } from "lucide-react";
 import { buttonVariants } from "@workspace/ui/components/button";
 import { mergeWithDefaults } from "@workspace/ui/lib/utils";
 
@@ -58,15 +57,14 @@ function CTA({ className = "", buttons = defaultButtons }: CTAProps) {
                 <div className="glow-box relative flex flex-col overflow-hidden rounded-2xl bg-brand p-6 sm:p-8 md:p-10 lg:items-center lg:p-16 lg:text-center">
                     <div className="pointer-events-none absolute -top-20 -right-20 h-72 w-72 rounded-full bg-primary/30 blur-3xl"></div>
 
-                    <h2 className="mb-2 text-xl font-bold tracking-tight sm:text-2xl md:text-3xl lg:text-4xl text-brand-foreground">
+                    <h2 className="mb-2 text-xl font-bold tracking-tight text-brand-foreground sm:text-2xl md:text-3xl lg:text-4xl">
                         Ready to join the ecosystem?
                     </h2>
-                    <p className="max-w-124 leading-relaxed text-brand-foreground/70 md:text-lg">
-                        Create your free Veblex account and get access to all
-                        our services with a single sign-on.
+                    <p className="max-w-124 leading-relaxed text-balance text-brand-foreground/80">
+                        Create your free Veblex account now.
                     </p>
 
-                    <div className="z-10 mt-6 grid items-center gap-4 sm:mt-8 sm:flex">
+                    <div className="z-10 mt-6 grid items-center gap-4 sm:flex">
                         <a
                             className={buttonVariants({
                                 variant: buttonConfig.primary?.variant,
@@ -75,7 +73,6 @@ function CTA({ className = "", buttons = defaultButtons }: CTAProps) {
                             href={buttonConfig.primary?.href}
                         >
                             {buttonConfig.primary?.title}
-                            <ArrowRight className="size-4" />
                         </a>
                         <a
                             className={buttonVariants({
@@ -85,7 +82,6 @@ function CTA({ className = "", buttons = defaultButtons }: CTAProps) {
                             href={buttonConfig.secondary?.href}
                         >
                             {buttonConfig.secondary?.title}
-                            <ChevronRight className="size-4" />
                         </a>
                     </div>
                 </div>

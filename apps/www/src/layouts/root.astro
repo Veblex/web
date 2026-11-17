@@ -1,4 +1,8 @@
 ---
+import { createHash } from "node:crypto";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+
 import "@workspace/ui/styles/globals.css";
 import { ThemeProvider } from "@workspace/ui/components/theme-provider";
 import { THEME_INIT_SCRIPT } from "@workspace/ui/lib/theme-storage";
@@ -8,6 +12,16 @@ import Footer from "@components/footer.astro";
 
 import { ClientRouter } from "astro:transitions";
 import { Font } from "astro:assets";
+
+const nextThemesMarkup = renderToStaticMarkup(createElement(ThemeProvider));
+const nextThemesScript = nextThemesMarkup.match(
+    /<script[^>]*>([\s\S]*?)<\/script>/,
+)?.[1];
+if (nextThemesScript) {
+    Astro.csp?.insertScriptHash(
+        `sha256-${createHash("sha256").update(nextThemesScript).digest("base64")}`,
+    );
+}
 
 const origin = Astro.site?.origin ?? "";
 const url = `${origin}${Astro.url.pathname}`;
@@ -85,7 +99,7 @@ const ogUrl = `${origin}/${og ?? "og.png"}`;
         <ClientRouter />
 
         <Font cssVariable="--font-manrope" preload />
-        <Font cssVariable="--font-space-grotesk" preload />
+        <Font cssVariable="--font-noto-sans-symbols-2" preload />
         <Font cssVariable="--font-jetbrains-mono" preload />
     </head>
     <body>

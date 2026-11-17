@@ -1,8 +1,11 @@
+import { Calendar, Dumbbell, Film, Lock, type LucideIcon } from "lucide-react";
+
 type Service = {
     title: string;
     description: string;
     category: string;
     features: string[];
+    icon?: LucideIcon;
     href: string;
     status: "released" | "in progress" | "coming soon" | "on hold";
     isCore: boolean;
@@ -18,6 +21,7 @@ const services: Service[] = [
         href: "https://auth.veblex.com",
         status: "in progress",
         isCore: true,
+        icon: Lock,
     },
     {
         title: "Veblex Gym",
@@ -33,6 +37,7 @@ const services: Service[] = [
         status: "in progress",
         href: "https://gym.veblex.com",
         isCore: true,
+        icon: Dumbbell,
     },
     {
         title: "Veblex Calendar",
@@ -48,6 +53,7 @@ const services: Service[] = [
         status: "coming soon",
         href: "https://calendar.veblex.com",
         isCore: true,
+        icon: Calendar,
     },
     {
         title: "Moviestix",
@@ -58,6 +64,7 @@ const services: Service[] = [
         status: "in progress",
         href: "https://www.moviestix.com",
         isCore: false,
+        icon: Film,
     },
 ];
 
